@@ -76,6 +76,6 @@ Return to Homepage
 BACKEND TEAM: Albin Shaji//Abdul Basith
 
 Techstack:
-FE: HTML, CSS, React, Vite
+FE: HTML, CSS, React, Vite, Javascript
 BE: Supabase/MongoDB
 Deployment: Vercel/Netlify
