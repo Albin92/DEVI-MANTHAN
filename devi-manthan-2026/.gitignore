@@ -8,12 +8,19 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+package-lock.json
+package.json
+skills-lock.json
+.agents/
 dist
 dist-ssr
 *.local
 
 # Editor directories and files
 .vscode/*
+../.agents/*
+../skills-lock.json*
+../welcomepage.html
 !.vscode/extensions.json
 .idea
 .DS_Store
