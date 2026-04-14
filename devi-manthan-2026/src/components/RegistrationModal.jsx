@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '../supabaseClient';
 
 const EVENT_CONFIG = {
   "CHITRAKATHA (Photography)": { members: 1, type: "Solo", weapon: "Drishti" },
@@ -11,7 +12,6 @@ const EVENT_CONFIG = {
   "ASTRACODERS (Web Designing)": { members: 2, type: "Team", weapon: "Shilpa" }
 };
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyfLclDur_fftk-6uNBtScP-Cd9hqSYFLFg8JUfSqvPNtFtq1-ZJ8xeHEAe7H_49fdr3w/exec';
 
 const CornerOrnament = ({ className }) => (
   <svg className={`form-svg-corner ${className}`} viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -120,6 +120,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
       return `${ev.split(' (')[0]}: [${members}]`;
     }).join(' | ');
 
+<<<<<<< HEAD
     const payload = new FormData();
     payload.append('name', formData.collegeName);
     payload.append('dept', formData.leaderName);
@@ -129,11 +130,34 @@ export default function RegistrationModal({ isOpen, onClose }) {
 
     try {
       await fetch(scriptURL, { method: 'POST', body: payload, mode: 'no-cors' });
+=======
+    try {
+      const { error } = await supabase
+        .from('registrations')
+        .insert([
+          {
+            college_name: formData.collegeName,
+            leader_name: formData.leaderName,
+            leader_phone: formData.leaderPhone,
+            leader_email: formData.leaderEmail,
+            event_details: eventDetailsString,
+          }
+        ]);
+
+      if (error) {
+        throw error;
+      }
+
+>>>>>>> ec3fdee653f324d2eeea6c18cc93e1877689cf6d
       setSuccess(true);
       setTimeout(() => { onClose(); }, 5000);
     } catch (err) {
       console.error('Error!', err.message);
+<<<<<<< HEAD
       alert("Deployment failed. The gods seem busy. Try again.");
+=======
+      alert("Registration failed. Please check your connection and try again.");
+>>>>>>> ec3fdee653f324d2eeea6c18cc93e1877689cf6d
     } finally {
       setLoading(false);
     }
