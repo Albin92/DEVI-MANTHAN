@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '../supabaseClient';
 
 const EVENT_CONFIG = {
   "CHITRAKATHA (Photography)": { members: 1, type: "Solo" },
@@ -11,7 +12,6 @@ const EVENT_CONFIG = {
   "ASTRACODERS (Web Designing)": { members: 2, type: "Team" }
 };
 
-const scriptURL = 'https://script.google.com/macros/s/AKfycbyfLclDur_fftk-6uNBtScP-Cd9hqSYFLFg8JUfSqvPNtFtq1-ZJ8xeHEAe7H_49fdr3w/exec';
 
 export default function RegistrationModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -87,26 +87,30 @@ export default function RegistrationModal({ isOpen, onClose }) {
       return `${ev.split(' (')[0]}: [${members}]`;
     }).join(' | ');
 
-    const payload = new FormData();
-    payload.append('name', formData.collegeName); // Mapping college to name
-    payload.append('dept', formData.leaderName); // Mapping leader to dept
-    payload.append('regNo', formData.leaderPhone); // Mapping phone to regNo
-    payload.append('year', formData.leaderEmail); // Mapping email to year
-    payload.append('event', eventDetailsString);
-
     try {
-      await fetch(scriptURL, {
-        method: 'POST',
-        body: payload,
-        mode: 'no-cors'
-      });
+      const { error } = await supabase
+        .from('registrations')
+        .insert([
+          {
+            college_name: formData.collegeName,
+            leader_name: formData.leaderName,
+            leader_phone: formData.leaderPhone,
+            leader_email: formData.leaderEmail,
+            event_details: eventDetailsString,
+          }
+        ]);
+
+      if (error) {
+        throw error;
+      }
+
       setSuccess(true);
       setTimeout(() => {
         onClose();
       }, 4000);
     } catch (err) {
       console.error('Error!', err.message);
-      alert("Deployment failed. Please check your connection and try again.");
+      alert("Registration failed. Please check your connection and try again.");
     } finally {
       setLoading(false);
     }
