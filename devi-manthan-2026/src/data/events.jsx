@@ -16,8 +16,8 @@ export const events = [
 4. Professional conduct is mandatory; misconduct results in disqualification.
 5. All instructions from coordinators and judges must be followed — their decisions are final.`,
     eventHeads: [
-      { role: 'Head', name: 'Rohan Bhandary', phone: '+91 83568 02086', photo: null },
-      { role: 'Head', name: 'Tulsi Mendon', phone: '+91 93807 59180', photo: null }
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null },
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null }
     ]
   },
   {
@@ -34,8 +34,8 @@ export const events = [
 4. Use of pre-made templates is strictly forbidden.
 5. Bring your own development environment / laptops.`,
     eventHeads: [
-      { role: 'Head', name: 'Rohan Bhandary', phone: '+91 83568 02086', photo: null },
-      { role: 'Head', name: 'Tulsi Mendon', phone: '+91 93807 59180', photo: null }
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null },
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null }
     ]
   },
   {
@@ -51,8 +51,8 @@ export const events = [
 3. Tampering with other teams' clues leads to instant disqualification.
 4. Time limit applies to specific zones. Let your instincts guide you.`,
     eventHeads: [
-      { role: 'Head', name: 'Rohan Bhandary', phone: '+91 83568 02086', photo: null },
-      { role: 'Head', name: 'Tulsi Mendon', phone: '+91 93807 59180', photo: null }
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null },
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null }
     ]
   },
   {
@@ -71,8 +71,8 @@ export const events = [
 6. ETERNAL RECORD: Team Captains must submit screenshots of the final battle (Match Results) for divine verification.
 7. THE FINAL DECREE: The decision of the SPARDHA Sabha (Organizing Committee) is final and binding.`,
     eventHeads: [
-      { role: 'Head', name: 'Rohan Bhandary', phone: '+91 83568 02086', photo: null },
-      { role: 'Head', name: 'Tulsi Mendon', phone: '+91 93807 59180', photo: null }
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null },
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null }
     ]
   },
 
@@ -91,8 +91,8 @@ export const events = [
 4. Provide your background audio track on a USB drive before the event starts.
 5. Decisions of the judges will be final and binding.`,
     eventHeads: [
-      { role: 'Head', name: 'Rohan Bhandary', phone: '+91 83568 02086', photo: null },
-      { role: 'Head', name: 'Tulsi Mendon', phone: '+91 93807 59180', photo: null }
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null },
+      { role: 'Head', name: 'Coordinator Name', phone: '+91 XXXXX XXXXX', photo: null }
     ]
   }
 ];

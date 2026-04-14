@@ -204,7 +204,7 @@ export default function HomePage() {
       </section>
 
       {/* QUICK PREVIEW MARQUEE */}
-      <section id="events" style={{marginTop: '40px', position: 'relative', zIndex: 6}}>
+      <section style={{marginTop: '40px', position: 'relative', zIndex: 6}}>
         <div className="marquee-wrap" style={{background: 'var(--ink)'}}>
           <div className="marquee">
             <span className="mi">Netrutva</span><span className="md">◈</span>

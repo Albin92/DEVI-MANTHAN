@@ -4,158 +4,192 @@ import { createPortal } from 'react-dom';
 export default function EventModal({ event, isOpen, onClose }) {
   if (!isOpen || !event) return null;
 
-  // Split Rules by newline to map them cleanly
   const rulesList = event.rules ? event.rules.split('\n').filter(r => r.trim() !== '') : [];
 
   return createPortal(
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }} 
-        animate={{ opacity: 1 }} 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-[#02020D]/95 z-[9999] flex items-center justify-center p-4 backdrop-blur-md"
+        className="fixed inset-0 bg-[#02020D]/98 z-[100002] flex items-center justify-center p-2 md:p-4 backdrop-blur-xl"
         onClick={onClose}
         style={{ overflowY: 'auto' }}
       >
-        {/* Massive 2-Column Modal */}
         <motion.div
-          initial={{ scale: 0.95, opacity: 0, y: 30 }}
+          initial={{ scale: 0.9, opacity: 0, y: 50 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0 }}
-          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-[#0a0a0f] border border-white/5 rounded-2xl p-6 md:p-10 max-w-6xl w-full relative shadow-2xl flex flex-col md:flex-row gap-10 my-8"
+          exit={{ scale: 0.9, opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="ancient-modal max-w-6xl w-full relative flex flex-col md:flex-row gap-0 md:gap-10 my-4 md:my-8 rounded-lg"
           onClick={e => e.stopPropagation()}
         >
+          {/* ORNAMENTS */}
+          <div className="modal-corner tl"></div>
+          <div className="modal-corner tr"></div>
+          <div className="modal-corner bl"></div>
+          <div className="modal-corner br"></div>
+
+          <div className="divine-aura"></div>
+
           {/* Close Button */}
-          <button 
-            className="absolute top-4 right-4 md:top-6 md:right-6 text-white/40 hover:text-white text-xl transition-colors z-50 p-2"
+          <button
+            className="absolute top-4 right-4 text-[var(--gold)] hover:scale-110 transition-transform z-[60] text-2xl"
             onClick={onClose}
           >
-            ✕
+            <i className="fa-solid fa-circle-xmark"></i>
           </button>
-          
-          {/* LEFT COLUMN: Hero & Logo Integration */}
-          <div className="flex-1 flex flex-col justify-between border-r-0 md:border-r border-white/5 md:pr-10">
-            
-            <div>
-              {/* Category Sub Label */}
-              <div className="text-[var(--saff)] text-xs font-mono tracking-widest uppercase mb-4 opacity-80">
-                // {event.category}_EVENT
+
+          {/* LEFT COLUMN: The Divine Manifestation */}
+          <div className="flex-1 flex flex-col p-6 md:p-10 border-b md:border-b-0 md:border-r border-white/5 bg-black/20">
+
+            <div className="relative">
+              <div className="text-[var(--saff)] text-[10px] font-orbitron tracking-[0.3em] uppercase mb-4 opacity-70 flex items-center gap-2">
+                <span className="h-[1px] w-6 bg-[var(--saff)]/40"></span>
+                Part of the {event.category} Faction
               </div>
-              
-              {/* Event Typography */}
-              <h2 className="font-cinzel text-5xl md:text-7xl font-bold text-white leading-none mb-3" style={{ textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
+
+              <h2 className="font-cinzel-deco text-4xl md:text-6xl font-black mb-2 tracking-tight uppercase"
+                style={{
+                  background: "radial-gradient(circle at 50% 10%, #fff 0%, var(--gold2) 20%, var(--gold) 50%, #b27a00 80%, var(--saff) 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                  filter: "drop-shadow(0 10px 10px rgba(0,0,0,0.5))"
+                }}>
                 {event.name}
               </h2>
-              
-              <div className="inline-blockpx-3 py-1 bg-white/5 border border-[var(--saff)]/40 text-[var(--saff)] text-xs font-mono px-3 py-1 rounded-full mb-8">
-                {event.subtitle.toUpperCase()}
+
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-[2px] flex-1 bg-gradient-to-r from-[var(--gold3)] to-transparent"></div>
+                <div className="text-[var(--gold)] font-orbitron text-[10px] font-bold tracking-[4px] uppercase decoration-current">
+                  {event.subtitle}
+                </div>
               </div>
             </div>
 
-            {/* MASSIVE LOGO CONTAINER */}
-            {event.imageIcon ? (
-              <div className="flex-1 flex items-center justify-center bg-[#050508] border border-white/5 rounded-2xl p-8 mb-8 relative group overflow-hidden shadow-inner">
-                {/* Subtle background glow */}
-                <div className="absolute inset-0 bg-[var(--gold)] opacity-[0.02] group-hover:opacity-[0.04] transition-opacity duration-700" />
-                <motion.img 
-                  src={event.imageIcon} 
-                  alt={event.name} 
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                  className="w-full max-w-[400px] h-auto object-contain filter drop-shadow-[0_0_30px_rgba(245,197,24,0.15)] group-hover:scale-105 transition-transform duration-700" 
-                />
-              </div>
-            ) : (
-               <div className="flex-1 flex items-center justify-center bg-[#050508] border border-white/5 rounded-2xl p-8 mb-8 relative">
-                 <div className="text-[var(--gold)] text-9xl opacity-80" style={{filter: 'drop-shadow(0 0 40px rgba(245, 197, 24, 0.2))'}}>{event.icon}</div>
-               </div>
-            )}
+            {/* SYMBOLIC LOGO */}
+            <div className="flex-1 flex items-center justify-center bg-black/40 rounded-xl p-8 mb-8 relative border border-white/5 shadow-inner group overflow-hidden">
+              {/* Rotating Chakra watermark */}
+              <motion.div
+                className="absolute text-[var(--gold)] opacity-[0.03] text-[20rem] pointer-events-none"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+              >
+                <i className="fa-solid fa-dharmachakra"></i>
+              </motion.div>
 
-            {/* Tagline / Description Base */}
-            <div>
-              <p className="font-raleway text-white/50 text-sm leading-relaxed">
-                <span className="text-white block font-bold mb-1 opacity-90">{event.tagline}</span>
+              {event.imageIcon ? (
+                <motion.img
+                  src={event.imageIcon}
+                  alt={event.name}
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                  className="w-full max-w-[320px] h-auto object-contain filter drop-shadow-[0_0_40px_rgba(245,197,24,0.3)] group-hover:scale-105 transition-transform duration-700 z-10"
+                />
+              ) : (
+                <div className="text-[var(--gold3)] text-9xl group-hover:scale-110 transition-transform duration-700 z-10" style={{ filter: 'drop-shadow(0 0 30px rgba(245, 197, 24, 0.4))' }}>
+                  {event.icon}
+                </div>
+              )}
+            </div>
+
+            <div className="bg-black/30 p-5 rounded-lg border-l-2 border-[var(--saff)]">
+              <p className="font-rajdhani text-white/40 text-[13px] italic mb-2 tracking-wide">
+                "{event.tagline}"
+              </p>
+              <p className="font-rajdhani text-white/80 text-sm leading-relaxed">
                 {event.description}
               </p>
             </div>
-            
+
           </div>
 
-          {/* RIGHT COLUMN: The Intel & Rules */}
-          <div className="flex-1 flex flex-col justify-start">
-             
-             {/* Rules Section */}
-             <div className="mb-10">
-               <div className="flex items-center gap-4 mb-6">
-                 <h3 className="text-[#ff3333] text-xs font-bold tracking-[0.2em] uppercase m-0">Rules &amp; Guidelines</h3>
-                 <div className="h-[1px] bg-white/10 flex-1"></div>
-               </div>
-               
-               <ul className="space-y-4">
-                 {rulesList.map((rule, idx) => {
-                   // Optional: separate rule number from text if rule starts with "1. "
-                   const ruleText = rule.replace(/^[0-9]+\.\s*/, '');
-                   return (
-                     <motion.li 
-                       key={idx}
-                       initial={{ opacity: 0, x: 20 }}
-                       animate={{ opacity: 1, x: 0 }}
-                       transition={{ delay: 0.3 + (idx * 0.05) }}
-                       className="flex items-start gap-4 font-raleway text-sm text-white/70"
-                     >
-                       <span className="text-[#ff3333] font-mono mt-[2px] opacity-80">❯</span>
-                       <span className="leading-relaxed">{ruleText}</span>
-                     </motion.li>
-                   )
-                 })}
-               </ul>
-             </div>
+          {/* RIGHT COLUMN: The Mandate & Warriors */}
+          <div className="flex-1 flex flex-col p-6 md:p-10 bg-black/10">
 
-             {/* Event Heads Section */}
-             {event.eventHeads && event.eventHeads.length > 0 && (
-               <div className="mt-auto">
-                 <div className="flex items-center gap-4 mb-6">
-                   <h3 className="text-[#ff3333] text-xs font-bold tracking-[0.2em] uppercase m-0">Event Heads</h3>
-                   <div className="h-[1px] bg-white/10 flex-1"></div>
-                 </div>
+            {/* Rules Section */}
+            <div className="mb-10">
+              <div className="shloka-header">
+                <span className="text-[var(--gold)] text-[10px] font-orbitron font-bold tracking-[4px] uppercase">
+                  <i className="fa-solid fa-scroll mr-2"></i> The Mandate / Rules
+                </span>
+              </div>
 
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                   {event.eventHeads.map((head, i) => (
-                     <div key={i} className="bg-[#0f0f14] border border-white/5 rounded-xl p-4 hover:border-white/10 transition-colors flex items-center gap-4 group">
-                       
-                       {head.photo ? (
-                         <img src={head.photo} alt={head.name} className="w-12 h-12 rounded-lg object-cover border border-white/10" />
-                       ) : (
-                         <div className="w-12 h-12 rounded-lg bg-black flex items-center justify-center border border-white/5 text-white/20 group-hover:text-white/40 transition-colors">
-                           <i className="fa-solid fa-user"></i>
-                         </div>
-                       )}
+              <ul className="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                {rulesList.map((rule, idx) => {
+                  const ruleText = rule.replace(/^[0-9]+\.\s*/, '');
+                  return (
+                    <motion.li
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + (idx * 0.05) }}
+                      className="flex items-start gap-0 scroll-text text-sm"
+                    >
+                      <span className="myth-bullet mt-1">
+                        <i className="fa-solid fa-dharmachakra"></i>
+                      </span>
+                      <span className="text-white/70">{ruleText}</span>
+                    </motion.li>
+                  )
+                })}
+              </ul>
+            </div>
 
-                       <div>
-                         <div className="text-[#ff3333] text-[10px] font-mono uppercase tracking-widest mb-1">{head.role}</div>
-                         <div className="text-white text-sm font-semibold mb-0.5">{head.name}</div>
-                         <div className="text-white/40 text-xs font-mono">{head.phone}</div>
-                       </div>
-                     </div>
-                   ))}
-                 </div>
-               </div>
-             )}
+            {/* Event Heads Section */}
+            {event.eventHeads && event.eventHeads.length > 0 && (
+              <div>
+                <div className="shloka-header">
+                  <span className="text-[var(--gold)] text-[10px] font-orbitron font-bold tracking-[4px] uppercase">
+                    <i className="fa-solid fa-shield-halved mr-2"></i> Faction Leads
+                  </span>
+                </div>
 
-             {/* Action Button */}
-             <div className="mt-10 flex justify-end">
-                <button 
-                  onClick={() => {
-                    onClose();
-                    document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className="bg-transparent border border-[var(--saff)] text-[var(--saff)] font-mono text-sm px-8 py-3 rounded-md hover:bg-[var(--saff)] hover:text-black transition-all duration-300"
-                >
-                  [ ENROLL NOW ]
-                </button>
-             </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {event.eventHeads.map((head, i) => (
+                    <div key={i} className="ancient-card p-4 flex items-center gap-4 group">
+
+                      {head.photo ? (
+                        <div className="relative">
+                          <img src={head.photo} alt={head.name} className="w-12 h-12 rounded-full object-cover border-2 border-[var(--gold3)]" />
+                          <div className="absolute inset-0 rounded-full bg-[var(--gold)] opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        </div>
+                      ) : (
+                        <div className="w-12 h-12 rounded-full bg-black/60 flex items-center justify-center border border-[var(--gold3)] text-[var(--gold)]">
+                          <i className="fa-solid fa-user-ninja"></i>
+                        </div>
+                      )}
+
+                      <div>
+                        <div className="text-[var(--saff)] text-[9px] font-orbitron tracking-widest uppercase mb-0.5">{head.role}</div>
+                        <div className="text-white text-sm font-cinzel font-bold">{head.name}</div>
+                        <div className="text-white/30 text-[10px] font-orbitron hover:text-[var(--gold)] transition-colors">
+                          <a href={`tel:${head.phone}`}><i className="fa-solid fa-phone-volume mr-1"></i>{head.phone}</a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Action Button */}
+            <div className="mt-10 flex justify-center md:justify-end">
+              <button
+                onClick={() => {
+                  onClose();
+                  const regBtn = document.getElementById('register');
+                  if (regBtn) regBtn.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="bg-transparent border-2 border-[var(--gold)] text-[var(--gold)] font-orbitron font-bold text-xs px-10 py-4 rounded-sm hover:bg-[var(--gold)] hover:text-black transition-all duration-300 shadow-[0_0_20px_rgba(245,197,24,0.1)] hover:shadow-[0_0_30px_rgba(245,197,24,0.3)] relative overflow-hidden group"
+              >
+                <span className="relative z-10 tracking-[3px]">COMMENCE TRIAL</span>
+
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              </button>
+            </div>
 
           </div>
         </motion.div>
@@ -164,3 +198,4 @@ export default function EventModal({ event, isOpen, onClose }) {
     document.body
   );
 }
+

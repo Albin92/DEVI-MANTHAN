@@ -118,7 +118,7 @@ body {
     border: 1.5px solid var(--gold);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 100001;
+    z-index: 200000;
     transform: translate(-50%, -50%);
     transition: width .25s, height .25s, border-color .25s;
     mix-blend-mode: exclusion
@@ -131,7 +131,7 @@ body {
     background: var(--saff);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 100001;
+    z-index: 200000;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 8px var(--saff)
 }
@@ -620,10 +620,21 @@ nav#nav.stuck {
     transform: translateY(0)
 }
 
-.rd1 { transition-delay: .1s }
-.rd2 { transition-delay: .2s }
-.rd3 { transition-delay: .3s }
-.rd4 { transition-delay: .4s }
+.rd1 {
+    transition-delay: .1s
+}
+
+.rd2 {
+    transition-delay: .2s
+}
+
+.rd3 {
+    transition-delay: .3s
+}
+
+.rd4 {
+    transition-delay: .4s
+}
 
 /* CTA Buttons */
 .btn-fire {
@@ -1578,21 +1589,176 @@ footer {
         top: 10%;
         left: -20px;
     }
+}
 
-    .f-gada {
-        bottom: 10%;
-        right: -20px;
+/* ════════════ CELESTIAL ATMOSPHERE ════════════ */
+.celestial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.spark {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: var(--gold);
+    border-radius: 50%;
+    filter: blur(1px) drop-shadow(0 0 5px var(--saff));
+}
+
+.f-feather {
+    top: 60%;
+    left: 15%;
+    width: 70px;
+    opacity: 0.12;
+    z-index: 1;
+}
+
+.shloka-ghost-v {
+    position: fixed;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    opacity: 0.04;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    pointer-events: none;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+
+.shloka-track {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    animation: shloka-scroll 60s linear infinite;
+}
+
+@keyframes shloka-scroll {
+    from {
+        transform: translateY(0);
     }
-
-    .f-chakra {
-        top: 30%;
-        right: -10px;
-    }
-
-    .htitle {
-        font-size: clamp(2.5rem, 15vw, 4.5rem) !important;
+    to {
+        transform: translateY(-100%);
     }
 }
+
+.myth-grid-overlay {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: 
+        radial-gradient(circle at 2px 2px, var(--gold) 1px, transparent 0);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+}
+
+/* ════════════ VEDIC-CYBER BACKGROUND TEXTURE ════════════ */
+.diagonal-texture {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.05;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23d4af37' stroke-width='0.5'/%3E%3Cpath d='M30 15 L45 30 L30 45 L15 30 Z' fill='none' stroke='%23f5c518' stroke-width='0.2'/%3E%3C/svg%3E");
+    background-size: 120px 120px;
+    animation: vedic-breath 15s ease-in-out infinite alternate;
+}
+
+.diagonal-texture::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 50% 50%, var(--gold) 0.5px, transparent 1px);
+    background-size: 60px 60px;
+    animation: bindu-flow 30s linear infinite;
+}
+
+@keyframes vedic-breath {
+    0% { opacity: 0.03; transform: scale(1); }
+    100% { opacity: 0.06; transform: scale(1.05); }
+}
+
+@keyframes bindu-flow {
+    from { background-position: 0 0; }
+    to { background-position: 600px 600px; }
+}
+
+.myth-glow-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(circle at 30% 30%, rgba(245, 197, 24, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 70% 70%, rgba(255, 115, 0, 0.05) 0%, transparent 40%);
+    transform: translate(-50%, -50%);
+    animation: aura-drift 30s ease-in-out infinite alternate;
+}
+
+.myth-dust {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(1px 1px at 25% 35%, white 100%, transparent 0),
+                      radial-gradient(1px 1px at 50% 10%, white 100%, transparent 0),
+                      radial-gradient(1.5px 1.5px at 75% 65%, var(--gold) 100%, transparent 0),
+                      radial-gradient(1px 1px at 10% 90%, white 100%, transparent 0);
+    background-size: 300px 300px;
+    opacity: 0.15;
+    animation: dust-float 40s linear infinite;
+}
+
+@keyframes aura-drift {
+    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+    100% { transform: translate(-45%, -55%) rotate(5deg) scale(1.1); }
+}
+
+@keyframes dust-float {
+    from { background-position: 0 0; }
+    to { background-position: 300px 600px; }
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 10px var(--gold));
+        opacity: 0.15;
+    }
+
+    50% {
+        filter: drop-shadow(0 0 20px var(--saff));
+        opacity: 0.25;
+    }
+}
+
+.f-gada {
+    bottom: 10%;
+    right: -20px;
+}
+
+.f-chakra {
+    top: 30%;
+    right: -10px;
+}
+
+.htitle {
+    font-size: clamp(2.5rem, 15vw, 4.5rem) !important;
+}
+
 
 /* ══════════════════════════════════════════ RESPONSIVE */
 @media(max-width:1050px) {
@@ -1688,4 +1854,124 @@ footer {
     .coord-grid {
         grid-template-columns: 1fr
     }
+}
+
+/* ════════════ MAHABHARATA THEME MODAL ════════════ */
+.ancient-modal {
+    background: radial-gradient(circle at center, #100f1a 0%, var(--ink) 100%);
+    border: 2px solid var(--gold3);
+    position: relative;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 30px rgba(245, 197, 24, 0.1);
+    overflow: hidden !important;
+}
+
+.ancient-modal::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(245, 197, 24, 0.15);
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* Corner Ornaments */
+.modal-corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--gold3);
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.6;
+}
+
+.modal-corner.tl {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.modal-corner.tr {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.modal-corner.bl {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.modal-corner.br {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+.divine-aura {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle, rgba(245, 197, 24, 0.08) 0%, transparent 70%);
+    animation: divine-pulse 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes divine-pulse {
+
+    0%,
+    100% {
+        opacity: 0.4;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+.shloka-header {
+    font-family: 'Cinzel Decorative', serif;
+    background: linear-gradient(90deg, transparent, rgba(245, 197, 24, 0.1), transparent);
+    padding: 10px 0;
+    margin-bottom: 24px;
+    border-top: 1px solid rgba(245, 197, 24, 0.1);
+    border-bottom: 1px solid rgba(245, 197, 24, 0.1);
+    text-align: center;
+}
+
+.myth-bullet {
+    color: var(--saff);
+    font-size: 0.85rem;
+    filter: drop-shadow(0 0 5px var(--saff));
+    margin-right: 12px;
+}
+
+.scroll-text {
+    font-family: 'Rajdhani', sans-serif;
+    color: #d1c4a9;
+    line-height: 1.8;
+}
+
+.ancient-card {
+    background: rgba(245, 197, 24, 0.03);
+    border: 1px solid rgba(245, 197, 24, 0.1);
+    border-radius: 12px;
+    transition: all 0.4s;
+}
+
+.ancient-card:hover {
+    background: rgba(245, 197, 24, 0.06);
+    border-color: var(--gold3);
+    box-shadow: 0 0 20px rgba(245, 197, 24, 0.1);
 }

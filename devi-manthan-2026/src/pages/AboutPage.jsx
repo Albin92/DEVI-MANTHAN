@@ -47,53 +47,55 @@ export default function AboutPage() {
 
   return (
     <motion.div
+      id="about"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      style={{flexGrow: 1}}
+      style={{ flexGrow: 1 }}
       ref={containerRef}
     >
-      <div style={{height: '110px'}}></div> {/* Spacer for fixed nav */}
+      <div className="diagonal-texture" />
+      <div style={{ height: '110px' }}></div> {/* Spacer for fixed nav */}
 
       {/* ════════════ ABOUT ════════════ */}
-      <section id="about" className="s-pad pt-10">
-        <div style={{maxWidth:'1100px', margin:'0 auto'}}>
+      <section className="s-pad pt-10">
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div className="s-head s-center r">
             <p className="s-eye">The Epic Unfolds</p>
             <h2 className="s-title">Where Code Meets Kurukshetra</h2>
             <p className="s-desc">In the age of the Mahabharata, warriors were forged not by birth — but by skill, strategy, and will. Devi-Manthan 2026 channels that same spirit into the modern battlefield of technology.</p>
           </div>
           <div className="about-grid grid-2 r">
-            <div style={{background:'var(--cb)', border:'1px solid var(--cbl)', borderRadius:'12px', padding:'28px 24px', position:'relative', overflow:'hidden'}}>
-              <div style={{position:'absolute', top:0, left:0, right:0, height:'2px', background:'linear-gradient(90deg,var(--saff),var(--gold),transparent)'}}></div>
-              <div style={{fontSize:'2rem', marginBottom:'12px'}}>🏹</div>
-              <h3 style={{fontFamily:"'Cinzel',serif", fontSize:'1.1rem', color:'#fff', marginBottom:'10px'}}>The Kurukshetra of Code</h3>
-              <p style={{fontSize:'.9rem', color:'var(--muted)', lineHeight:1.8}}>Where coders are the Arjunas, ideas are the Brahmaastras, and innovation is the ultimate Dharma. Nine trials await the worthy.</p>
+            <div style={{ background: 'var(--cb)', border: '1px solid var(--cbl)', borderRadius: '12px', padding: '28px 24px', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--saff),var(--gold),transparent)' }}></div>
+              <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🏹</div>
+              <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '1.1rem', color: '#fff', marginBottom: '10px' }}>The Kurukshetra of Code</h3>
+              <p style={{ fontSize: '.9rem', color: 'var(--muted)', lineHeight: 1.8 }}>Where coders are the Arjunas, ideas are the Brahmaastras, and innovation is the ultimate Dharma. Nine trials await the worthy.</p>
             </div>
-            <div style={{background:'var(--cb)', border:'1px solid var(--cbl)', borderRadius:'12px', padding:'28px 24px', position:'relative', overflow:'hidden'}}>
-              <div style={{position:'absolute', top:0, left:0, right:0, height:'2px', background:'linear-gradient(90deg,var(--saff),var(--gold),transparent)'}}></div>
-              <div style={{fontSize:'2rem', marginBottom:'12px'}}>🏛️</div>
-              <h3 style={{fontFamily:"'Cinzel',serif", fontSize:'1.1rem', color:'#fff', marginBottom:'10px'}}>Shree Devi College</h3>
-              <p style={{fontSize:'.9rem', color:'var(--muted)', lineHeight:1.8}}>A bastion of excellence in Information Science, forging the architects of tomorrow's digital age with innovation-driven education.</p>
+            <div style={{ background: 'var(--cb)', border: '1px solid var(--cbl)', borderRadius: '12px', padding: '28px 24px', position: 'relative', overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--saff),var(--gold),transparent)' }}></div>
+              <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🏛️</div>
+              <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '1.1rem', color: '#fff', marginBottom: '10px' }}>Shree Devi College</h3>
+              <p style={{ fontSize: '.9rem', color: 'var(--muted)', lineHeight: 1.8 }}>A bastion of excellence in Information Science, forging the architects of tomorrow's digital age with innovation-driven education.</p>
             </div>
           </div>
-          <div className="grid-4 r rd2" style={{border:'1px solid var(--cbl)', borderRadius:'10px', overflow:'hidden', marginTop:'20px', maxWidth:'900px', marginLeft:'auto', marginRight:'auto'}}>
-            <div style={{padding:'22px 12px', textAlign:'center', background:'var(--cb)', borderRight:'1px solid var(--cbl)'}}>
-              <div style={{fontFamily:"'Orbitron',monospace", fontSize:'2rem', fontWeight:700, background:'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text'}} data-target="9">0</div>
-              <div style={{fontSize:'.72rem', letterSpacing:'2px', color:'var(--muted)', textTransform:'uppercase', marginTop:'4px'}}>Events</div>
+          <div className="grid-4 r rd2" style={{ border: '1px solid var(--cbl)', borderRadius: '10px', overflow: 'hidden', marginTop: '20px', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
+            <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="9">0</div>
+              <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Events</div>
             </div>
-            <div style={{padding:'22px 12px', textAlign:'center', background:'var(--cb)', borderRight:'1px solid var(--cbl)'}}>
-              <div style={{fontFamily:"'Orbitron',monospace", fontSize:'2rem', fontWeight:700, background:'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text'}} data-target="500">0</div>
-              <div style={{fontSize:'.72rem', letterSpacing:'2px', color:'var(--muted)', textTransform:'uppercase', marginTop:'4px'}}>Warriors</div>
+            <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="500">0</div>
+              <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Warriors</div>
             </div>
-            <div style={{padding:'22px 12px', textAlign:'center', background:'var(--cb)', borderRight:'1px solid var(--cbl)'}}>
-              <div style={{fontFamily:"'Orbitron',monospace", fontSize:'2rem', fontWeight:700, background:'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text'}} data-target="1">0</div>
-              <div style={{fontSize:'.72rem', letterSpacing:'2px', color:'var(--muted)', textTransform:'uppercase', marginTop:'4px'}}>Epic Day</div>
+            <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="1">0</div>
+              <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Epic Day</div>
             </div>
-            <div style={{padding:'22px 12px', textAlign:'center', background:'var(--cb)'}}>
-              <div style={{fontFamily:"'Orbitron',monospace", fontSize:'2rem', fontWeight:700, background:'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip:'text', WebkitTextFillColor:'transparent', backgroundClip:'text'}}>∞</div>
-              <div style={{fontSize:'.72rem', letterSpacing:'2px', color:'var(--muted)', textTransform:'uppercase', marginTop:'4px'}}>Glory</div>
+            <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)' }}>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>∞</div>
+              <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Glory</div>
             </div>
           </div>
         </div>
@@ -103,7 +105,7 @@ export default function AboutPage() {
 
       {/* ════════════ STAFF COORDINATORS ════════════ */}
       <section className="s-pad">
-        <div style={{maxWidth:'1050px', margin:'0 auto'}}>
+        <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
           <div className="s-head s-center r">
             <p className="s-eye">⚔ The Faculty Council</p>
             <h2 className="s-title">Staff Coordinators</h2>
@@ -111,25 +113,25 @@ export default function AboutPage() {
           </div>
           <div className="coord-grid">
             <div className="cc r rd1">
-              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{color:'var(--gold)'}}></i></div>
-              <div className="cname">[Staff Coordinator 1]</div>
+              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{ color: 'var(--gold)' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">Chief Convener</div>
-              <div className="cdept">Dept. of Information Science<br/>Shree Devi College</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <div className="cdept">Dept. of Information Science<br />Shree Devi College</div>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
             <div className="cc r rd2">
-              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{color:'var(--gold)'}}></i></div>
-              <div className="cname">[Staff Coordinator 2]</div>
+              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{ color: 'var(--gold)' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">Co-Convener</div>
-              <div className="cdept">Dept. of Information Science<br/>Shree Devi College</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <div className="cdept">Dept. of Information Science<br />Shree Devi College</div>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
             <div className="cc r rd3">
-              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{color:'var(--gold)'}}></i></div>
-              <div className="cname">[Staff Coordinator 3]</div>
+              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{ color: 'var(--gold)' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">Faculty In-Charge</div>
-              <div className="cdept">Dept. of Information Science<br/>Shree Devi College</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <div className="cdept">Dept. of Information Science<br />Shree Devi College</div>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
           </div>
         </div>
@@ -139,46 +141,46 @@ export default function AboutPage() {
 
       {/* ════════════ STUDENT COORDINATORS ════════════ */}
       <section className="s-pad">
-        <div style={{maxWidth:'1050px', margin:'0 auto'}}>
+        <div style={{ maxWidth: '1050px', margin: '0 auto' }}>
           <div className="s-head s-center r">
             <p className="s-eye">✦ The Student Warriors</p>
             <h2 className="s-title">Student Coordinators</h2>
             <p className="s-desc">The student leaders who drive every faction into battle.</p>
           </div>
-          <div className="coord-grid" style={{gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))'}}>
+          <div className="coord-grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))' }}>
             <div className="cc r rd1">
-              <div className="cav av-g"><i className="fa-solid fa-crown" style={{color:'#000'}}></i></div>
-              <div className="cname">[Student Head 1]</div>
+              <div className="cav av-g"><i className="fa-solid fa-crown" style={{ color: '#000' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">President</div>
               <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
             <div className="cc r rd2">
-              <div className="cav av-g"><i className="fa-solid fa-shield-halved" style={{color:'#000'}}></i></div>
-              <div className="cname">[Student Head 2]</div>
+              <div className="cav av-g"><i className="fa-solid fa-shield-halved" style={{ color: '#000' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">Vice President</div>
               <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
             <div className="cc r rd3">
-              <div className="cav av-g"><i className="fa-solid fa-code" style={{color:'#000'}}></i></div>
-              <div className="cname">[Student Head 3]</div>
+              <div className="cav av-g"><i className="fa-solid fa-code" style={{ color: '#000' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">Technical Head</div>
               <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
             <div className="cc r rd4">
-              <div className="cav av-g"><i className="fa-solid fa-calendar-check" style={{color:'#000'}}></i></div>
-              <div className="cname">[Student Head 4]</div>
+              <div className="cav av-g"><i className="fa-solid fa-calendar-check" style={{ color: '#000' }}></i></div>
+              <div className="cname">Full Name</div>
               <div className="crole">Events Head</div>
               <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{fontSize:'.7rem'}}></i>+91 XXXXX XXXXX</a>
+              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
           </div>
         </div>
       </section>
-      
-      <div className="sdiv" style={{marginBottom: "40px"}}></div>
+
+      <div className="sdiv" style={{ marginBottom: "40px" }}></div>
     </motion.div>
   );
 }

@@ -4,14 +4,14 @@ import VasukiDivider from './ui/VasukiDivider';
 import RevealWrapper from './ui/RevealWrapper';
 
 const staff = [
-  { id: 1, name: 'Dr. Aravind M', role: 'Staff Coordinator', phone: '+91 98765 43210' },
-  { id: 2, name: 'Prof. Sunita R', role: 'Staff Coordinator', phone: '+91 98765 43211' }
+  { id: 1, name: 'Full Name', role: 'Staff Coordinator', phone: '+91 XXXXX XXXXX' },
+  { id: 2, name: 'Full Name', role: 'Staff Coordinator', phone: '+91 XXXXX XXXXX' }
 ];
 
 const students = [
-  { id: 3, name: 'Vikram S', role: 'Student Coordinator', phone: '+91 98765 43212' },
-  { id: 4, name: 'Neha P', role: 'Student Coordinator', phone: '+91 98765 43213' },
-  { id: 5, name: 'Rahul K', role: 'Student Coordinator', phone: '+91 98765 43214' }
+  { id: 3, name: 'Full Name', role: 'Student Coordinator', phone: '+91 XXXXX XXXXX' },
+  { id: 4, name: 'Full Name', role: 'Student Coordinator', phone: '+91 XXXXX XXXXX' },
+  { id: 5, name: 'Full Name', role: 'Student Coordinator', phone: '+91 XXXXX XXXXX' }
 ];
 
 const CoordinatorCard = ({ person }) => {
@@ -30,7 +30,7 @@ const CoordinatorCard = ({ person }) => {
       <h3 className="font-cinzelPlain text-gold font-semibold text-lg">{person.name}</h3>
       <p className="font-raleway italic text-text-muted text-sm mt-1 mb-3">{person.role}</p>
       <a href={`tel:${person.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-2 font-raleway text-gold text-sm hover:text-white transition-colors">
-        <FaPhone className="text-xs" /> {person.phone}
+        <i className="fa-solid fa-phone text-xs"></i> {person.phone}
       </a>
     </motion.div>
   );

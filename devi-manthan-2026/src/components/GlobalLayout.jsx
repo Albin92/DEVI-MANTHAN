@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function GlobalLayout({ children }) {
@@ -49,7 +50,9 @@ export default function GlobalLayout({ children }) {
     document.addEventListener('mousemove', handleMouseMove);
     cursorRaf = requestAnimationFrame(loopCursor);
 
-    // NAVBAR SCROLL & SECTION WATCHER
+    cursorRaf = requestAnimationFrame(loopCursor);
+
+    // NAVBAR SCROLL
     const handleScroll = () => {
       if (navRef.current) {
         if (window.scrollY > 55) {
@@ -64,8 +67,8 @@ export default function GlobalLayout({ children }) {
     // Intersection Observer for Scroll Spy
     const observerOptions = {
       root: null,
-      rootMargin: '-10% 0px -85% 0px', // Smaller, higher focal zone
-      threshold: [0, 0.1]
+      rootMargin: '-15% 0px -75% 0px', // Slightly larger focal zone (10% height)
+      threshold: [0, 0.1, 0.5]
     };
 
     const handleIntersect = (entries) => {
@@ -83,19 +86,38 @@ export default function GlobalLayout({ children }) {
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    const sections = ['hero', 'events', 'about', 'register'];
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    
+    // RETRY OBSERVER: Scans for sections repeatedly to handle delayed mounts from page transitions
+    let attempts = 0;
+    const obsInterval = setInterval(() => {
+      attempts++;
+      const sections = ['hero', 'about'];
+      let foundCount = 0;
+      
+      sections.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) {
+          observer.observe(el);
+          foundCount++;
+        }
+      });
 
+      // If all targets found or too many attempts (2.5s), stop retrying
+      if (foundCount === sections.length || attempts > 25) {
+        clearInterval(obsInterval);
+      }
+    }, 100);
 
     // KEYBOARD ESC
     const handleKey = (e) => { if (e.key === 'Escape') setMobOpen(false); };
     document.addEventListener('keydown', handleKey);
 
+    // Reset scroll to top on route change
+    window.scrollTo(0, 0);
+
     return () => {
       clearTimeout(loaderTimer);
+      clearInterval(obsInterval);
       document.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(cursorRaf);
       window.removeEventListener('scroll', handleScroll);
@@ -209,17 +231,21 @@ export default function GlobalLayout({ children }) {
   const isActive = (path) => {
     const sectionMapping = {
       '/': 'hero',
-      '/events': 'events',
-      '/about': 'about',
-      '/register': 'register'
+      '/about': 'about'
     };
     
-    // If the scroll-tracked section matches the path's intended section, it's active
-    if (activeSection === sectionMapping[path]) return 'active';
+    // On homepage, prioritize scroll-tracked sections
+    if (location.pathname === '/') {
+      // If this path is one we track by scroll
+      if (sectionMapping[path]) {
+        return activeSection === sectionMapping[path] ? 'active' : '';
+      }
+    }
     
-    // Fallback to strict pathname match for static navigation
+    // Otherwise, or as fallback, use strict pathname match
     return location.pathname === path ? 'active' : '';
   };
+
 
   // Smooth scroll handler
   const handleNavClick = (e, targetId, path) => {
@@ -259,27 +285,82 @@ export default function GlobalLayout({ children }) {
       {/* CANVAS / FX */}
       <canvas id="bg-canvas" ref={canvasRef}></canvas>
 
-      {/* FLOATING ELEMENTS */}
-      <div className="f-elem f-bow">
+      {/* CELESTIAL ATMOSPHERE: SPARKS */}
+      <div className="celestial-overlay">
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="spark"
+            initial={{ 
+              x: Math.random() * 100 + '%', 
+              y: '110vh', 
+              opacity: Math.random() * 0.5 + 0.2,
+              scale: Math.random() * 0.5 + 0.5
+            }}
+            animate={{ 
+              y: '-10vh', 
+              x: (Math.random() * 100 - 50) + 'px' 
+            }}
+            transition={{ 
+              duration: Math.random() * 10 + 10, 
+              repeat: Infinity, 
+              ease: "linear",
+              delay: Math.random() * 20
+            }}
+          />
+        ))}
+      </div>
+
+      {/* FLOATING WEAPONS WITH PARALLAX */}
+      <motion.div className="f-elem f-bow" style={{ y: useTransform(useSpring(useScroll().scrollYProgress, {stiffness:100, damping:30}), [0,1], [0, -150]) }}>
         <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 50C20 50 60 10 100 10C140 10 180 50 180 50" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
           <path d="M20 50C20 50 60 90 100 90C140 90 180 50 180 50" stroke="var(--gold)" strokeWidth="4" strokeLinecap="round" />
           <line x1="20" y1="50" x2="180" y2="50" stroke="var(--gold)" strokeWidth="0.5" opacity="0.5" />
         </svg>
-      </div>
-      <div className="f-elem f-gada">
+      </motion.div>
+      <motion.div className="f-elem f-gada" style={{ y: useTransform(useSpring(useScroll().scrollYProgress, {stiffness:100, damping:30}), [0,1], [0, 200]) }}>
         <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="50" cy="50" r="40" stroke="var(--gold)" strokeWidth="3" />
           <rect x="45" y="90" width="10" height="100" rx="5" fill="var(--gold)" opacity="0.6" />
           <path d="M30 30L70 70M70 30L30 70" stroke="var(--gold)" strokeWidth="2" />
         </svg>
-      </div>
-      <div className="f-elem f-chakra">
+      </motion.div>
+      <motion.div className="f-elem f-chakra" style={{ y: useTransform(useSpring(useScroll().scrollYProgress, {stiffness:100, damping:30}), [0,1], [0, -80]) }}>
         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="50" cy="50" r="45" stroke="var(--gold)" strokeWidth="1" strokeDasharray="5 5" />
           <circle cx="50" cy="50" r="30" stroke="var(--gold)" strokeWidth="2" />
           <path d="M50 5V20M50 80V95M5 50H20M80 50H95" stroke="var(--saff)" strokeWidth="4" strokeLinecap="round" />
         </svg>
+      </motion.div>
+
+      {/* MAYUR PANKH (PEACOCK FEATHER) */}
+      <motion.div 
+        className="f-elem f-feather"
+        animate={{ 
+          rotate: [0, 5, -5, 0],
+          x: [0, 20, -10, 0],
+          y: [0, -15, 10, 0]
+        }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 180 Q45 140 50 100 Q55 60 50 20" stroke="var(--gold)" strokeWidth="1.5" opacity="0.4" />
+          <ellipse cx="50" cy="50" rx="25" ry="40" stroke="var(--saff)" strokeWidth="1.5" opacity="0.3" />
+          <path d="M50 30 C35 30 30 50 50 75 C70 50 65 30 50 30" fill="var(--gold)" opacity="0.1" />
+        </svg>
+      </motion.div>
+
+      {/* GHOSTLY SCROLLING SHLOKAS */}
+      <div className="shloka-ghost-v">
+        <div className="shloka-track">
+           <span>॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</span>
+           <span>◈</span>
+           <span>॥ धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ॥</span>
+           <span>◈</span>
+           <span>॥ यतो धर्मस्ततो जयः ॥</span>
+           <span>◈</span>
+        </div>
       </div>
 
       <div className="noise"></div>
