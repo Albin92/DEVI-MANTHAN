@@ -5,10 +5,20 @@ import HomePage from './pages/HomePage';
 import EventsPage from './pages/EventsPage';
 import AboutPage from './pages/AboutPage';
 import RegisterPage from './pages/RegisterPage';
+import AdminPage from './pages/admin/AdminPage';
 import './styles/homeDesign.css'; // Add the global AAA-game design here
 
 function AppLayout() {
   const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  if (isAdminRoute) {
+    return (
+      <Routes location={location} key={location.pathname}>
+        <Route path="/admin" element={<AdminPage />} />
+      </Routes>
+    );
+  }
 
   return (
     <GlobalLayout>
