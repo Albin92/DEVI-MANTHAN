@@ -25,7 +25,7 @@ const ThematicInput = ({ label, ...props }) => (
   <div className="thematic-input-wrapper">
     <label className="thematic-label">{label}</label>
     <input className="thematic-input" {...props} />
-    <motion.div 
+    <motion.div
       initial={{ scaleX: 0 }}
       whileFocus={{ scaleX: 1 }}
       className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#F5C518] origin-left"
@@ -120,17 +120,6 @@ export default function RegistrationModal({ isOpen, onClose }) {
       return `${ev.split(' (')[0]}: [${members}]`;
     }).join(' | ');
 
-<<<<<<< HEAD
-    const payload = new FormData();
-    payload.append('name', formData.collegeName);
-    payload.append('dept', formData.leaderName);
-    payload.append('regNo', formData.leaderPhone);
-    payload.append('year', formData.leaderEmail);
-    payload.append('event', eventDetailsString);
-
-    try {
-      await fetch(scriptURL, { method: 'POST', body: payload, mode: 'no-cors' });
-=======
     try {
       const { error } = await supabase
         .from('registrations')
@@ -148,16 +137,11 @@ export default function RegistrationModal({ isOpen, onClose }) {
         throw error;
       }
 
->>>>>>> ec3fdee653f324d2eeea6c18cc93e1877689cf6d
       setSuccess(true);
       setTimeout(() => { onClose(); }, 5000);
     } catch (err) {
       console.error('Error!', err.message);
-<<<<<<< HEAD
-      alert("Deployment failed. The gods seem busy. Try again.");
-=======
       alert("Registration failed. Please check your connection and try again.");
->>>>>>> ec3fdee653f324d2eeea6c18cc93e1877689cf6d
     } finally {
       setLoading(false);
     }
@@ -197,18 +181,18 @@ export default function RegistrationModal({ isOpen, onClose }) {
               <circle cx="50" cy="50" r="45" strokeDasharray="5 5" />
               <circle cx="50" cy="50" r="30" strokeDasharray="2 4" />
               {[...Array(12)].map((_, i) => (
-                <line 
-                  key={i} 
-                  x1="50" y1="50" 
-                  x2={50 + 40 * Math.cos(i * Math.PI / 6)} 
-                  y2={50 + 40 * Math.sin(i * Math.PI / 6)} 
+                <line
+                  key={i}
+                  x1="50" y1="50"
+                  x2={50 + 40 * Math.cos(i * Math.PI / 6)}
+                  y2={50 + 40 * Math.sin(i * Math.PI / 6)}
                 />
               ))}
             </svg>
             {embers.map((ember, i) => (
-              <div 
-                key={i} 
-                className="ember" 
+              <div
+                key={i}
+                className="ember"
                 style={{
                   left: ember.left,
                   bottom: ember.bottom,
@@ -229,7 +213,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
 
           {!success ? (
             <>
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center mb-10"
@@ -245,40 +229,40 @@ export default function RegistrationModal({ isOpen, onClose }) {
                 <motion.div variants={sectionVariants} initial="hidden" animate="visible">
                   <SectionDivider title="01 — COLLEGE & LEADER" />
                   <div className="space-y-6">
-                    <ThematicInput 
+                    <ThematicInput
                       label="College Name *"
-                      name="collegeName" 
-                      value={formData.collegeName} 
-                      onChange={handleInputChange} 
-                      required 
-                      placeholder="Enter your college name" 
+                      name="collegeName"
+                      value={formData.collegeName}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter your college name"
                     />
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <ThematicInput 
+                      <ThematicInput
                         label="Leader Name *"
-                        name="leaderName" 
-                        value={formData.leaderName} 
-                        onChange={handleInputChange} 
-                        required 
-                        placeholder="The Lead Participant" 
+                        name="leaderName"
+                        value={formData.leaderName}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="The Lead Participant"
                       />
-                      <ThematicInput 
+                      <ThematicInput
                         label="Leader Contact Number *"
-                        name="leaderPhone" 
-                        value={formData.leaderPhone} 
-                        onChange={handleInputChange} 
-                        required 
-                        placeholder="+91 XXXXX XXXXX" 
+                        name="leaderPhone"
+                        value={formData.leaderPhone}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="+91 XXXXX XXXXX"
                       />
                     </div>
-                    <ThematicInput 
+                    <ThematicInput
                       label="Leader Email ID *"
-                      name="leaderEmail" 
-                      value={formData.leaderEmail} 
-                      onChange={handleInputChange} 
-                      required 
+                      name="leaderEmail"
+                      value={formData.leaderEmail}
+                      onChange={handleInputChange}
+                      required
                       type="email"
-                      placeholder="leader@college.edu" 
+                      placeholder="leader@college.edu"
                     />
                   </div>
                 </motion.div>
@@ -287,8 +271,8 @@ export default function RegistrationModal({ isOpen, onClose }) {
                   <SectionDivider title="02 — EVENT SELECTION" />
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {Object.keys(EVENT_CONFIG).map((eventName) => (
-                      <div 
-                        key={eventName} 
+                      <div
+                        key={eventName}
                         onClick={() => handleEventToggle(eventName)}
                         className={`event-card-themed ${formData.events.includes(eventName) ? 'selected' : ''}`}
                       >
@@ -307,8 +291,8 @@ export default function RegistrationModal({ isOpen, onClose }) {
 
                 <AnimatePresence>
                   {formData.events.length > 0 && (
-                    <motion.div 
-                      initial={{ opacity: 0, height: 0 }} 
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
@@ -341,16 +325,16 @@ export default function RegistrationModal({ isOpen, onClose }) {
                 </AnimatePresence>
 
                 <div className="pt-8 gap-4 flex flex-col">
-                  <button 
-                    type="submit" 
-                    disabled={loading || formData.events.length === 0} 
+                  <button
+                    type="submit"
+                    disabled={loading || formData.events.length === 0}
                     className="glow-btn-themed"
                   >
                     {loading ? 'Processing...' : 'Complete Registration'}
                   </button>
-                  <button 
-                    type="button" 
-                    onClick={onClose} 
+                  <button
+                    type="button"
+                    onClick={onClose}
                     className="text-gray-500 hover:text-white font-rajdhani uppercase tracking-widest text-xs transition-colors"
                   >
                     Return to Home
@@ -370,8 +354,8 @@ export default function RegistrationModal({ isOpen, onClose }) {
               <h2 className="text-4xl font-cinzel text-white mb-6 tracking-widest">REGISTRATION SUCCESSFUL</h2>
               <p className="text-[var(--gold)] font-rajdhani text-xl mb-2">Your team has been registered.</p>
               <p className="text-gray-500 text-sm font-rajdhani mb-10 tracking-widest">See you at the event!</p>
-              <button 
-                onClick={onClose} 
+              <button
+                onClick={onClose}
                 className="glow-btn-themed !w-auto px-12"
               >
                 Return
