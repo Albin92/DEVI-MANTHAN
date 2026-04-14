@@ -53,6 +53,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
   const [participants, setParticipants] = useState({});
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const embers = React.useMemo(() => {
     return [...Array(20)].map((_, i) => ({
@@ -72,6 +73,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
       });
       setParticipants({});
       setSuccess(false);
+      setShowCheckout(false);
     }
   }, [isOpen]);
 
@@ -108,28 +110,60 @@ export default function RegistrationModal({ isOpen, onClose }) {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const getCalculatedTotals = () => {
+    let count = 0;
+    const formattedParticipants = [];
+    formData.events.forEach(eventName => {
+      const parts = participants[eventName] || [];
+      const validParts = parts.filter(m => m.trim() !== '');
+      count += validParts.length;
+      validParts.forEach(p => {
+        formattedParticipants.push({
+           id: `p_${Math.random().toString(36).substr(2, 9)}`,
+           name: p,
+           event: eventName
+        });
+      });
+    });
+    return { count, amount: count * 100, formattedParticipants };
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.events.length === 0) {
       alert("ERROR: Select your trial to enter the Kurukshetra.");
       return;
     }
+    
+    // Calculate if they even have names filled in
+    const { count } = getCalculatedTotals();
+    if (count === 0) {
+      alert("ERROR: Please provide participant details for your selected events.");
+      return;
+    }
+
+    setShowCheckout(true);
+  };
+
+  const handleMockPayment = async () => {
     setLoading(true);
-    const eventDetailsString = formData.events.map(ev => {
-      const members = participants[ev].filter(m => m.trim() !== '').join(', ');
-      return `${ev.split(' (')[0]}: [${members}]`;
-    }).join(' | ');
+    // Simulate Razorpay window handling delay
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const { amount, formattedParticipants } = getCalculatedTotals();
 
     try {
       const { error } = await supabase
         .from('registrations')
         .insert([
           {
-            college_name: formData.collegeName,
+            college: formData.collegeName,
             leader_name: formData.leaderName,
             leader_phone: formData.leaderPhone,
             leader_email: formData.leaderEmail,
-            event_details: eventDetailsString,
+            total_amount: amount,
+            payment_status: 'Verified',
+            participants: formattedParticipants
           }
         ]);
 
@@ -138,6 +172,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
       }
 
       setSuccess(true);
+      setShowCheckout(false);
       setTimeout(() => { onClose(); }, 5000);
     } catch (err) {
       console.error('Error!', err.message);
@@ -212,20 +247,21 @@ export default function RegistrationModal({ isOpen, onClose }) {
           </button>
 
           {!success ? (
-            <>
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-center mb-10"
-              >
-                <h2 className="text-4xl font-cinzel text-white tracking-[0.2em] uppercase mb-4">
-                  Registration is <span className="text-[var(--gold)]">Open</span>
-                </h2>
-                <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent opacity-40"></div>
-                <p className="mt-4 font-rajdhani text-gray-400 tracking-[0.1em] uppercase text-sm">Join the technical showdown at Devi-Manthan 2026</p>
-              </motion.div>
+            !showCheckout ? (
+              <>
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center mb-10"
+                >
+                  <h2 className="text-4xl font-cinzel text-white tracking-[0.2em] uppercase mb-4">
+                    Registration is <span className="text-[var(--gold)]">Open</span>
+                  </h2>
+                  <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent opacity-40"></div>
+                  <p className="mt-4 font-rajdhani text-gray-400 tracking-[0.1em] uppercase text-sm">Join the technical showdown at Devi-Manthan 2026</p>
+                </motion.div>
 
-              <form onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-8">
                 <motion.div variants={sectionVariants} initial="hidden" animate="visible">
                   <SectionDivider title="01 — COLLEGE & LEADER" />
                   <div className="space-y-6">
@@ -327,10 +363,10 @@ export default function RegistrationModal({ isOpen, onClose }) {
                 <div className="pt-8 gap-4 flex flex-col">
                   <button
                     type="submit"
-                    disabled={loading || formData.events.length === 0}
+                    disabled={formData.events.length === 0}
                     className="glow-btn-themed"
                   >
-                    {loading ? 'Processing...' : 'Complete Registration'}
+                    Proceed to Payment
                   </button>
                   <button
                     type="button"
@@ -342,6 +378,62 @@ export default function RegistrationModal({ isOpen, onClose }) {
                 </div>
               </form>
             </>
+            ) : (
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="flex flex-col items-center py-8"
+                >
+                    <div className="p-4 bg-amber-500/10 rounded-full border border-amber-500/20 mb-6 shadow-[0_0_20px_rgba(245,158,11,0.2)]">
+                        <svg className="w-10 h-10 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                    </div>
+                    
+                    <h2 className="text-3xl font-cinzel text-white tracking-widest uppercase mb-2">Secure Checkout</h2>
+                    <p className="font-rajdhani text-zinc-400 text-sm mb-10 tracking-widest uppercase truncate max-w-[80%]">
+                        {formData.collegeName} · {formData.leaderEmail}
+                    </p>
+
+                    <div className="w-full max-w-sm bg-black/40 border border-white/10 rounded-2xl p-6 mb-8 backdrop-blur-md">
+                        <div className="flex justify-between items-center mb-4 pb-4 border-b border-white/10">
+                            <span className="font-rajdhani text-zinc-400 tracking-wider">Total Participants</span>
+                            <span className="font-mono text-xl text-white">{getCalculatedTotals().count}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                            <span className="font-rajdhani text-zinc-400 tracking-wider">Total Amount Due</span>
+                            <span className="font-mono text-3xl font-bold text-emerald-400 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]">
+                                ₹{getCalculatedTotals().amount}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div className="w-full pt-4 gap-4 flex flex-col items-center">
+                        <button
+                            onClick={handleMockPayment}
+                            disabled={loading}
+                            className="w-full max-w-sm bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)] tracking-widest uppercase disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {loading ? (
+                                <span className="flex items-center justify-center gap-2">
+                                    <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                    Processing Payment...
+                                </span>
+                            ) : (
+                                `Simulate Payment · ₹${getCalculatedTotals().amount}`
+                            )}
+                        </button>
+                        
+                        <button
+                            onClick={() => setShowCheckout(false)}
+                            disabled={loading}
+                            className="mt-4 text-zinc-500 hover:text-amber-500 font-rajdhani uppercase tracking-widest text-xs transition-colors disabled:opacity-50"
+                        >
+                            ← Back to Details
+                        </button>
+                    </div>
+                </motion.div>
+            )
           ) : (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
