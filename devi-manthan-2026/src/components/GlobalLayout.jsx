@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import TouchFeedback from './ui/TouchFeedback';
+import ScrollProgress from './ui/ScrollProgress';
 
 export default function GlobalLayout({ children }) {
   const canvasRef = useRef(null);
@@ -12,6 +14,15 @@ export default function GlobalLayout({ children }) {
 
   const [mobOpen, setMobOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth > 1024);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     // LOADER
@@ -19,9 +30,10 @@ export default function GlobalLayout({ children }) {
       if (loaderRef.current) loaderRef.current.classList.add('out');
     }, 2200);
 
-    // CURSOR & HOVER
+    // CURSOR & HOVER (Only on Desktop)
     let mx = 0, my = 0, rx = 0, ry = 0;
     let cursorRaf;
+
     const handleMouseMove = (e) => {
       mx = e.clientX;
       my = e.clientY;
@@ -30,7 +42,6 @@ export default function GlobalLayout({ children }) {
         curDotRef.current.style.top = my + 'px';
       }
       
-      // Update hovering state for cursor ring globally
       const target = e.target;
       if (target.closest('a, button, .ec, .cc, .bro-card, .btn-fire, .btn-ghost')) {
         document.body.classList.add('hovering');
@@ -38,6 +49,7 @@ export default function GlobalLayout({ children }) {
         document.body.classList.remove('hovering');
       }
     };
+
     const loopCursor = () => {
       rx += (mx - rx) * 0.1;
       ry += (my - ry) * 0.1;
@@ -47,10 +59,11 @@ export default function GlobalLayout({ children }) {
       }
       cursorRaf = requestAnimationFrame(loopCursor);
     };
-    document.addEventListener('mousemove', handleMouseMove);
-    cursorRaf = requestAnimationFrame(loopCursor);
 
-    cursorRaf = requestAnimationFrame(loopCursor);
+    if (isDesktop) {
+      document.addEventListener('mousemove', handleMouseMove);
+      cursorRaf = requestAnimationFrame(loopCursor);
+    }
 
     // NAVBAR SCROLL
     const handleScroll = () => {
@@ -118,14 +131,16 @@ export default function GlobalLayout({ children }) {
     return () => {
       clearTimeout(loaderTimer);
       clearInterval(obsInterval);
-      document.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(cursorRaf);
+      if (isDesktop) {
+        document.removeEventListener('mousemove', handleMouseMove);
+        cancelAnimationFrame(cursorRaf);
+      }
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('keydown', handleKey);
       document.body.classList.remove('hovering');
       observer.disconnect();
     };
-  }, [location.pathname]); // Re-observe when path changes as new sections might be rendered
+  }, [location.pathname, isDesktop]); // Re-observe when path changes or device modes swap
 
   // VFX CANVAS (Init Once)
   useEffect(() => {
@@ -264,6 +279,10 @@ export default function GlobalLayout({ children }) {
 
   return (
     <>
+      {/* MOBILE ENHANCEMENTS */}
+      {!isDesktop && <TouchFeedback />}
+      {!isDesktop && <ScrollProgress />}
+
       {/* CURSOR */}
       <div id="cur-ring" ref={curRingRef}></div>
       <div id="cur-dot" ref={curDotRef}></div>

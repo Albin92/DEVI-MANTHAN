@@ -21,9 +21,14 @@ html, body {
     color: var(--white);
     font-family: 'Rajdhani', sans-serif;
     overflow-x: hidden;
-    cursor: none;
     min-height: 100vh;
     width: 100%;
+}
+
+@media (min-width: 1025px) {
+    html, body {
+        cursor: none;
+    }
 }
 
 *,
@@ -136,6 +141,12 @@ html, body {
     z-index: 200000;
     transform: translate(-50%, -50%);
     box-shadow: 0 0 8px var(--saff)
+}
+
+@media (max-width: 1024px) {
+    #cur-ring, #cur-dot {
+        display: none !important;
+    }
 }
 
 body.hovering #cur-ring {

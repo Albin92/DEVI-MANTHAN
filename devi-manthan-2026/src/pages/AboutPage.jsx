@@ -126,7 +126,7 @@ export default function AboutPage() {
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--saff),var(--gold),transparent)' }}></div>
               <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🏹</div>
               <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '1.1rem', color: '#fff', marginBottom: '10px' }}>The Kurukshetra of Code</h3>
-              <p style={{ fontSize: '.9rem', color: 'var(--muted)', lineHeight: 1.8 }}>Where coders are the Arjunas, ideas are the Brahmaastras, and innovation is the ultimate Dharma. Nine trials await the worthy.</p>
+              <p style={{ fontSize: '.9rem', color: 'var(--muted)', lineHeight: 1.8 }}>Where coders are the Arjunas, ideas are the Brahmaastras, and innovation is the ultimate Dharma. Eight trials await the worthy.</p>
             </div>
             <div style={{ background: 'var(--cb)', border: '1px solid var(--cbl)', borderRadius: '12px', padding: '28px 24px', position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--saff),var(--gold),transparent)' }}></div>
@@ -137,7 +137,7 @@ export default function AboutPage() {
           </div>
           <div className="grid-4 r rd2" style={{ border: '1px solid var(--cbl)', borderRadius: '10px', overflow: 'hidden', marginTop: '20px', maxWidth: '900px', marginLeft: 'auto', marginRight: 'auto' }}>
             <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
-              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="9">0</div>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="8">0</div>
               <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Events</div>
             </div>
             <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
