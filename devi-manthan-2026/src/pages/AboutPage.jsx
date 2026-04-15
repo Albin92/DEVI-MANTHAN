@@ -111,27 +111,22 @@ export default function AboutPage() {
             <h2 className="s-title">Staff Coordinators</h2>
             <p className="s-desc">The faculty vanguard guiding the Digital Kurukshetra.</p>
           </div>
-          <div className="coord-grid">
+          <div className="coord-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', maxWidth: '640px', margin: '0 auto', gap: '32px' }}>
             <div className="cc r rd1">
-              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{ color: 'var(--gold)' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">Chief Convener</div>
+              <div className="cav-photo">
+                <img src="/staff/divya.png" alt="Dr Divya Naveen" className="cav-img" />
+              </div>
+              <div className="cname">Dr Divya Naveen</div>
+              <div className="crole">Staff Coordinator</div>
               <div className="cdept">Dept. of Information Science<br />Shree Devi College</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
             <div className="cc r rd2">
-              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{ color: 'var(--gold)' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">Co-Convener</div>
+              <div className="cav-photo">
+                <img src="/staff/jeevanya.png" alt="Jeevanya L Poojary" className="cav-img" />
+              </div>
+              <div className="cname">Jeevanya L Poojary</div>
+              <div className="crole">Staff Coordinator</div>
               <div className="cdept">Dept. of Information Science<br />Shree Devi College</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
-            </div>
-            <div className="cc r rd3">
-              <div className="cav av-r"><i className="fa-solid fa-user-tie" style={{ color: 'var(--gold)' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">Faculty In-Charge</div>
-              <div className="cdept">Dept. of Information Science<br />Shree Devi College</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
             </div>
           </div>
         </div>
@@ -147,34 +142,22 @@ export default function AboutPage() {
             <h2 className="s-title">Student Coordinators</h2>
             <p className="s-desc">The student leaders who drive every faction into battle.</p>
           </div>
-          <div className="coord-grid" style={{ gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))' }}>
+          <div className="coord-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', maxWidth: '640px', margin: '0 auto', gap: '32px' }}>
             <div className="cc r rd1">
-              <div className="cav av-g"><i className="fa-solid fa-crown" style={{ color: '#000' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">President</div>
-              <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
+              <div className="cav-photo" style={{ background: 'linear-gradient(135deg, var(--gold3), var(--gold))' }}>
+                <img src="/student/manya.png" alt="Manya M" className="cav-img" />
+              </div>
+              <div className="cname">Manya M</div>
+              <div className="crole">Student Coordinator</div>
+              <div className="cdept">Final Year · BCA<br />Shree Devi College</div>
             </div>
             <div className="cc r rd2">
-              <div className="cav av-g"><i className="fa-solid fa-shield-halved" style={{ color: '#000' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">Vice President</div>
-              <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
-            </div>
-            <div className="cc r rd3">
-              <div className="cav av-g"><i className="fa-solid fa-code" style={{ color: '#000' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">Technical Head</div>
-              <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
-            </div>
-            <div className="cc r rd4">
-              <div className="cav av-g"><i className="fa-solid fa-calendar-check" style={{ color: '#000' }}></i></div>
-              <div className="cname">Full Name</div>
-              <div className="crole">Events Head</div>
-              <div className="cdept">Final Year · BCA / BSc IT</div>
-              <a href="tel:+91XXXXXXXXXX" className="cph"><i className="fa-solid fa-phone" style={{ fontSize: '.7rem' }}></i>+91 XXXXX XXXXX</a>
+              <div className="cav-photo" style={{ background: 'linear-gradient(135deg, var(--gold3), var(--gold))' }}>
+                <img src="/student/prajwal.png" alt="Prajwal K" className="cav-img" />
+              </div>
+              <div className="cname">Prajwal K</div>
+              <div className="crole">Student Coordinator</div>
+              <div className="cdept">Final Year · BCA<br />Shree Devi College</div>
             </div>
           </div>
         </div>

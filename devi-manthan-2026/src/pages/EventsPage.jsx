@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
 import Events from '../components/Events';
-import Coordinators from '../components/Coordinators';
-
 export default function EventsPage() {
   return (
     <motion.div
@@ -13,9 +11,7 @@ export default function EventsPage() {
     >
       <div style={{height: '110px'}}></div>
       <Events />
-      <div className="sdiv" style={{ margin: '40px 0' }}></div>
-      <Coordinators />
-      <div className="sdiv" style={{ margin: '40px 0' }}></div>
+      <div style={{height: '40px'}}></div>
     </motion.div>
   );
 }
