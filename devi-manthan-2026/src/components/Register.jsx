@@ -34,7 +34,7 @@ export default function Register() {
                 <FaCalendar className="text-gold" /> 24–25 April 2026
               </div>
               <div className="flex items-center gap-2 border border-gold/30 text-text-muted px-4 py-2 rounded-full text-sm font-raleway bg-bg-dark/30 backdrop-blur-sm">
-                <FaMapPin className="text-gold" /> Shree Devi College of Info Science
+                <FaMapPin className="text-gold" /> Shree Devi College of Information Science
               </div>
               <div className="flex items-center gap-2 border border-gold/30 text-text-muted px-4 py-2 rounded-full text-sm font-raleway bg-bg-dark/30 backdrop-blur-sm">
                 <FaUsers className="text-gold" /> All Intercollegiate Students Welcome

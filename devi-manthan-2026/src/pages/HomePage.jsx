@@ -126,7 +126,7 @@ export default function HomePage() {
             className="hey"
             style={{ letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.8rem', color: 'var(--muted)' }}
           >
-            ✦ Intercollegiate IT Fest · Shree Devi College ✦
+            ✦ Intercollegiate IT Fest · Shree Devi College of Information Science ✦
           </motion.p>
 
           {/* THE GIANT THEMATIC MOVIE POSTER TITLE */}

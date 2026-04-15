@@ -131,7 +131,7 @@ export default function AboutPage() {
             <div style={{ background: 'var(--cb)', border: '1px solid var(--cbl)', borderRadius: '12px', padding: '28px 24px', position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '2px', background: 'linear-gradient(90deg,var(--saff),var(--gold),transparent)' }}></div>
               <div style={{ fontSize: '2rem', marginBottom: '12px' }}>🏛️</div>
-              <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '1.1rem', color: '#fff', marginBottom: '10px' }}>Shree Devi College</h3>
+              <h3 style={{ fontFamily: "'Cinzel',serif", fontSize: '1.1rem', color: '#fff', marginBottom: '10px' }}>Shree Devi College of Information Science</h3>
               <p style={{ fontSize: '.9rem', color: 'var(--muted)', lineHeight: 1.8 }}>A bastion of excellence in Information Science, forging the architects of tomorrow's digital age with innovation-driven education.</p>
             </div>
           </div>
