@@ -15,7 +15,7 @@ export default function EventModal({ event, isOpen, onClose }) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-[#02020D]/98 z-[100002] flex items-start justify-center p-4 md:p-8 backdrop-blur-xl overflow-y-auto"
+        className="fixed inset-0 bg-[#02020D]/98 z-[100002] flex items-start justify-center p-4 md:p-8 md:backdrop-blur-xl overflow-y-auto"
         onClick={onClose}
       >
         <motion.div

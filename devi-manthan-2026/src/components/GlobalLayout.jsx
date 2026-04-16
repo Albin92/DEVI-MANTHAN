@@ -12,6 +12,12 @@ export default function GlobalLayout({ children }) {
   const navRef = useRef(null);
   const location = useLocation();
 
+  const { scrollYProgress } = useScroll();
+  const smoothProgress = useSpring(scrollYProgress, {stiffness: 100, damping: 30});
+  const bowY = useTransform(smoothProgress, [0, 1], [0, -150]);
+  const gadaY = useTransform(smoothProgress, [0, 1], [0, 200]);
+  const chakraY = useTransform(smoothProgress, [0, 1], [0, -80]);
+
   const [mobOpen, setMobOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024);
@@ -28,7 +34,7 @@ export default function GlobalLayout({ children }) {
     // LOADER
     const loaderTimer = setTimeout(() => {
       if (loaderRef.current) loaderRef.current.classList.add('out');
-    }, 400);
+    }, 2200);
 
     // CURSOR & HOVER (Only on Desktop)
     let mx = 0, my = 0, rx = 0, ry = 0;
@@ -145,6 +151,7 @@ export default function GlobalLayout({ children }) {
   // VFX CANVAS (Init Once)
   useEffect(() => {
     let c = canvasRef.current;
+    if (!c || window.innerWidth < 768) return;
     let ctx = c?.getContext('2d');
     let W, H;
     let canvasRaf;
@@ -332,56 +339,64 @@ export default function GlobalLayout({ children }) {
       </div>
 
       {/* FLOATING WEAPONS WITH PARALLAX */}
-      <motion.div className="f-elem f-bow" style={{ y: useTransform(useSpring(useScroll().scrollYProgress, {stiffness:100, damping:30}), [0,1], [0, -150]) }}>
-        <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 50C20 50 60 10 100 10C140 10 180 50 180 50" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
-          <path d="M20 50C20 50 60 90 100 90C140 90 180 50 180 50" stroke="var(--gold)" strokeWidth="4" strokeLinecap="round" />
-          <line x1="20" y1="50" x2="180" y2="50" stroke="var(--gold)" strokeWidth="0.5" opacity="0.5" />
-        </svg>
-      </motion.div>
-      <motion.div className="f-elem f-gada" style={{ y: useTransform(useSpring(useScroll().scrollYProgress, {stiffness:100, damping:30}), [0,1], [0, 200]) }}>
-        <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="40" stroke="var(--gold)" strokeWidth="3" />
-          <rect x="45" y="90" width="10" height="100" rx="5" fill="var(--gold)" opacity="0.6" />
-          <path d="M30 30L70 70M70 30L30 70" stroke="var(--gold)" strokeWidth="2" />
-        </svg>
-      </motion.div>
-      <motion.div className="f-elem f-chakra" style={{ y: useTransform(useSpring(useScroll().scrollYProgress, {stiffness:100, damping:30}), [0,1], [0, -80]) }}>
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="50" r="45" stroke="var(--gold)" strokeWidth="1" strokeDasharray="5 5" />
-          <circle cx="50" cy="50" r="30" stroke="var(--gold)" strokeWidth="2" />
-          <path d="M50 5V20M50 80V95M5 50H20M80 50H95" stroke="var(--saff)" strokeWidth="4" strokeLinecap="round" />
-        </svg>
-      </motion.div>
+      {isDesktop && (
+        <>
+          <motion.div className="f-elem f-bow" style={{ y: bowY }}>
+            <svg viewBox="0 0 200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 50C20 50 60 10 100 10C140 10 180 50 180 50" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 4" />
+              <path d="M20 50C20 50 60 90 100 90C140 90 180 50 180 50" stroke="var(--gold)" strokeWidth="4" strokeLinecap="round" />
+              <line x1="20" y1="50" x2="180" y2="50" stroke="var(--gold)" strokeWidth="0.5" opacity="0.5" />
+            </svg>
+          </motion.div>
+          <motion.div className="f-elem f-gada" style={{ y: gadaY }}>
+            <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="40" stroke="var(--gold)" strokeWidth="3" />
+              <rect x="45" y="90" width="10" height="100" rx="5" fill="var(--gold)" opacity="0.6" />
+              <path d="M30 30L70 70M70 30L30 70" stroke="var(--gold)" strokeWidth="2" />
+            </svg>
+          </motion.div>
+          <motion.div className="f-elem f-chakra" style={{ y: chakraY }}>
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="45" stroke="var(--gold)" strokeWidth="1" strokeDasharray="5 5" />
+              <circle cx="50" cy="50" r="30" stroke="var(--gold)" strokeWidth="2" />
+              <path d="M50 5V20M50 80V95M5 50H20M80 50H95" stroke="var(--saff)" strokeWidth="4" strokeLinecap="round" />
+            </svg>
+          </motion.div>
+        </>
+      )}
 
       {/* MAYUR PANKH (PEACOCK FEATHER) */}
-      <motion.div 
-        className="f-elem f-feather"
-        animate={{ 
-          rotate: [0, 5, -5, 0],
-          x: [0, 20, -10, 0],
-          y: [0, -15, 10, 0]
-        }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 180 Q45 140 50 100 Q55 60 50 20" stroke="var(--gold)" strokeWidth="1.5" opacity="0.4" />
-          <ellipse cx="50" cy="50" rx="25" ry="40" stroke="var(--saff)" strokeWidth="1.5" opacity="0.3" />
-          <path d="M50 30 C35 30 30 50 50 75 C70 50 65 30 50 30" fill="var(--gold)" opacity="0.1" />
-        </svg>
-      </motion.div>
+      {isDesktop && (
+        <motion.div 
+          className="f-elem f-feather"
+          animate={{ 
+            rotate: [0, 5, -5, 0],
+            x: [0, 20, -10, 0],
+            y: [0, -15, 10, 0]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <svg viewBox="0 0 100 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 180 Q45 140 50 100 Q55 60 50 20" stroke="var(--gold)" strokeWidth="1.5" opacity="0.4" />
+            <ellipse cx="50" cy="50" rx="25" ry="40" stroke="var(--saff)" strokeWidth="1.5" opacity="0.3" />
+            <path d="M50 30 C35 30 30 50 50 75 C70 50 65 30 50 30" fill="var(--gold)" opacity="0.1" />
+          </svg>
+        </motion.div>
+      )}
 
       {/* GHOSTLY SCROLLING SHLOKAS */}
-      <div className="shloka-ghost-v">
-        <div className="shloka-track">
-           <span>॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</span>
-           <span>◈</span>
-           <span>॥ धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ॥</span>
-           <span>◈</span>
-           <span>॥ यतो धर्मस्ततो जयः ॥</span>
-           <span>◈</span>
+      {isDesktop && (
+        <div className="shloka-ghost-v">
+          <div className="shloka-track">
+             <span>॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</span>
+             <span>◈</span>
+             <span>॥ धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ॥</span>
+             <span>◈</span>
+             <span>॥ यतो धर्मस्ततो जयः ॥</span>
+             <span>◈</span>
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="noise"></div>
       <div className="vignette"></div>

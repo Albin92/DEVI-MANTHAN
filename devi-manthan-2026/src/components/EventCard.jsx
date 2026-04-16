@@ -17,6 +17,7 @@ const cardVariants = {
 
 export default function EventCard({ event, onOpenModal }) {
   const handleMouseMove = (e) => {
+    if (window.innerWidth < 768) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -24,6 +25,7 @@ export default function EventCard({ event, onOpenModal }) {
   };
 
   const handleMouseLeave = (e) => {
+    if (window.innerWidth < 768) return;
     e.currentTarget.style.transform = 'perspective(600px) rotateY(0deg) rotateX(0deg) translateY(0px)';
   };
 

@@ -30,7 +30,7 @@ export default function Hero() {
         stagger: 0.04, 
         duration: 1.2, 
         ease: "back.out(2)",
-        delay: 0.1
+        delay: 0.5
       });
     }
   }, []);

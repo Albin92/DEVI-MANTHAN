@@ -8,7 +8,8 @@ export default function HomePage() {
 
   // Generate deterministic embers for the slow fire effect
   const embers = useMemo(() => {
-    return Array.from({ length: 45 }).map(() => ({
+    const isMobile = window.innerWidth < 768;
+    return Array.from({ length: isMobile ? 5 : 45 }).map(() => ({
       left: Math.random() * 100,
       size: Math.random() * 4 + 2,
       duration: Math.random() * 6 + 5,
@@ -110,7 +111,7 @@ export default function HomePage() {
                 height: emb.size,
                 background: '#f5c518',
                 borderRadius: '50%',
-                filter: 'blur(1px) drop-shadow(0 0 10px #ff6d00)'
+                filter: window.innerWidth < 768 ? 'none' : 'blur(1px) drop-shadow(0 0 10px #ff6d00)'
               }}
             />
           ))}
@@ -133,7 +134,7 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9, filter: 'blur(20px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0 }}
+            transition={{ duration: 2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
             style={{ width: '100%', padding: '0 20px' }}
           >
             <h1 style={epicTitleStyle}>

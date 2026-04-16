@@ -3,9 +3,10 @@ import * as THREE from 'three';
 
 export default function ParticleCanvas() {
   const mountRef = useRef(null);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    if (isMobile || !mountRef.current) return;
 
     const scene = new THREE.Scene();
     
@@ -105,13 +106,17 @@ export default function ParticleCanvas() {
     return () => {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationId);
-      if (mountRef.current && renderer.domElement) {
+      if (mountRef.current && renderer.domElement && mountRef.current.contains(renderer.domElement)) {
         mountRef.current.removeChild(renderer.domElement);
       }
       scene.clear();
       renderer.dispose();
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return <div className="absolute inset-0 z-0 bg-radial-gradient from-transparent via-bg-dark/50 to-bg-dark opacity-60 pointer-events-none" />;
+  }
 
   return <div ref={mountRef} className="absolute inset-0 z-0 pointer-events-none opacity-60 mix-blend-screen" />;
 }
