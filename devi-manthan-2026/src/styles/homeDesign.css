@@ -31,9 +31,8 @@ body {
 }
 
 @media (min-width: 1025px) {
-
-    html,
-    body {
+    html:not(.admin-mode),
+    body:not(.admin-mode) {
         cursor: none;
     }
 }

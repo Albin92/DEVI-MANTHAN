@@ -157,7 +157,7 @@ export const events = [
     eventHeads: [
       { role: 'Student Coordinator', name: 'Nishad', phone: '9373791940', photo: null },
       { role: 'Student Coordinator', name: 'Chinmay Shetty', phone: '6238380721', photo: null },
-      { role: 'Staff Coordinator', name: 'Mr. Pankaj Gaty', phone: '7483772863', photo: null },
+      { role: 'Staff Coordinator', name: 'Mr. Pankaj Gatty', phone: '7483772863', photo: null },
       { role: 'Staff Coordinator', name: 'Prof. H. Triloknath', phone: '7306513755', photo: null },
       { role: 'Staff Coordinator', name: 'Prof. Vaidesh', phone: '9945538275', photo: null }
     ]
