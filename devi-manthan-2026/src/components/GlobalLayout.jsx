@@ -27,7 +27,23 @@ export default function GlobalLayout({ children }) {
       setIsDesktop(window.innerWidth > 1024);
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    // Cinematic Auto-Fullscreen on first interaction
+    const handleFirstInteraction = () => {
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      }
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
   }, []);
 
   useEffect(() => {
@@ -232,21 +248,7 @@ export default function GlobalLayout({ children }) {
     };
   }, []);
 
-  const handleBrochureClick = (e) => {
-    e.preventDefault();
-    const s = document.createElement('div');
-    Object.assign(s.style, {
-      position: 'fixed', bottom: '28px', left: '50%', transform: 'translateX(-50%) translateY(100px)',
-      background: 'rgba(2,2,13,.97)', border: '1px solid var(--gold)', borderRadius: '8px',
-      padding: '12px 28px', fontFamily: "'Rajdhani',sans-serif", fontSize: '.95rem',
-      color: 'var(--gold)', zIndex: '9000', transition: 'transform .4s cubic-bezier(.34,1.56,.64,1)',
-      backdropFilter: 'blur(12px)', whiteSpace: 'nowrap'
-    });
-    s.textContent = '☸  Brochure download coming soon!';
-    document.body.appendChild(s);
-    setTimeout(() => s.style.transform = 'translateX(-50%) translateY(0)', 10);
-    setTimeout(() => { s.style.transform = 'translateX(-50%) translateY(100px)'; setTimeout(() => s.remove(), 400) }, 3500);
-  };
+
 
   const closeMob = () => setMobOpen(false);
 
@@ -444,9 +446,8 @@ export default function GlobalLayout({ children }) {
             <div className="fb-logo"><i className="fa-solid fa-dharmachakra"></i> DEVI MANTHAN 2026</div>
             <p className="fb-p">The Intercollegiate IT Fest of Shree Devi College of Information Science, Mangaluru. Tradition Rewired. Innovation Unleashed.</p>
             <div className="ft-soc">
-              <a href="#" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
+              <a href="https://www.instagram.com/sdcis_2k26?igsh=ZG5wMmRqMTkxY2Fm" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
               <a href="mailto:" aria-label="Email"><i className="fa-solid fa-envelope"></i></a>
-              <a href="#" aria-label="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
             </div>
           </div>
           <div className="ft-col">
@@ -456,7 +457,7 @@ export default function GlobalLayout({ children }) {
               <li><Link to="/events"><i className="fa-solid fa-scroll"></i>Events</Link></li>
               <li><Link to="/about"><i className="fa-solid fa-circle-info"></i>About</Link></li>
               <li><Link to="/register"><i className="fa-solid fa-bolt"></i>Register</Link></li>
-              <li><a href="#" onClick={handleBrochureClick}><i className="fa-solid fa-file-pdf"></i>Brochure</a></li>
+              <li><a href="/brochure/brochure.pdf" target="_blank" rel="noopener noreferrer"><i className="fa-solid fa-file-pdf"></i>Brochure</a></li>
             </ul>
           </div>
           <div className="ft-col">
@@ -473,7 +474,7 @@ export default function GlobalLayout({ children }) {
           <div className="ft-col">
             <h4>Connect</h4>
             <ul>
-              <li><a href="https://instagram.com" target="_blank" rel="noreferrer"><i className="fa-brands fa-instagram"></i>@devimanthan2026</a></li>
+              <li><a href="https://www.instagram.com/sdcis_2k26?igsh=ZG5wMmRqMTkxY2Fm" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-instagram"></i>@sdcis_2k26</a></li>
               <li><a href="mailto:devimanthan@sdcis.ac.in"><i className="fa-solid fa-envelope"></i>devimanthan@sdcis.ac.in</a></li>
               <li><a href="tel:+91XXXXXXXXXX"><i className="fa-solid fa-phone"></i>+91 XXXXX XXXXX</a></li>
             </ul>

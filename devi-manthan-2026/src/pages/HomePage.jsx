@@ -18,21 +18,7 @@ export default function HomePage() {
     }));
   }, []);
 
-  const handleBrochureClick = (e) => {
-    e.preventDefault();
-    const s = document.createElement('div');
-    Object.assign(s.style, {
-      position: 'fixed', bottom: '28px', left: '50%', transform: 'translateX(-50%) translateY(100px)',
-      background: 'rgba(2,2,13,.97)', border: '1px solid var(--gold)', borderRadius: '8px',
-      padding: '12px 28px', fontFamily: "'Rajdhani',sans-serif", fontSize: '.95rem',
-      color: 'var(--gold)', zIndex: '9000', transition: 'transform .4s cubic-bezier(.34,1.56,.64,1)',
-      backdropFilter: 'blur(12px)', whiteSpace: 'nowrap'
-    });
-    s.textContent = '☸  Brochure download coming soon!';
-    document.body.appendChild(s);
-    setTimeout(() => s.style.transform = 'translateX(-50%) translateY(0)', 10);
-    setTimeout(() => { s.style.transform = 'translateX(-50%) translateY(100px)'; setTimeout(() => s.remove(), 400) }, 3500);
-  };
+
 
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
@@ -185,9 +171,9 @@ export default function HomePage() {
             </MagneticButton>
 
             <MagneticButton>
-              <button className="btn-ghost" onClick={handleBrochureClick} style={{ margin: '0 10px' }}>
+              <a href="/brochure/brochure.pdf" target="_blank" rel="noopener noreferrer" className="btn-ghost" style={{ margin: '0 10px', display: 'inline-block' }}>
                 <i className="fa-solid fa-file-arrow-down"></i> Download Brochure
-              </button>
+              </a>
             </MagneticButton>
           </motion.div>
 

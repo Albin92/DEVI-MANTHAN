@@ -16,7 +16,8 @@
     --cbs: rgba(245, 197, 24, .32);
 }
 
-html, body {
+html,
+body {
     background: var(--ink);
     color: var(--white);
     font-family: 'Rajdhani', sans-serif;
@@ -26,7 +27,9 @@ html, body {
 }
 
 @media (min-width: 1025px) {
-    html, body {
+
+    html,
+    body {
         cursor: none;
     }
 }
@@ -97,6 +100,7 @@ html, body {
     .noise {
         display: none !important;
     }
+
     #hero {
         padding-top: 80px;
     }
@@ -116,7 +120,8 @@ html, body {
         width: 100%;
         justify-content: center;
         margin: 8px 0 !important;
-        height: 54px; /* Explicit height to ensure matching */
+        height: 54px;
+        /* Explicit height to ensure matching */
     }
 }
 
@@ -147,7 +152,9 @@ html, body {
 }
 
 @media (max-width: 1024px) {
-    #cur-ring, #cur-dot {
+
+    #cur-ring,
+    #cur-dot {
         display: none !important;
     }
 }
@@ -353,12 +360,13 @@ nav#nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    transition: 
-        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
-        background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+    transition:
+        padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+        background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
         backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
         border-bottom-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: translateZ(0); /* Force GPU acceleration */
+    transform: translateZ(0);
+    /* Force GPU acceleration */
     will-change: padding, background-color, backdrop-filter;
     background-color: transparent;
     border-bottom: 1px solid transparent;
@@ -1255,7 +1263,7 @@ nav#nav.stuck {
     border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     transition: box-shadow 0.3s ease;
 }
 
@@ -1295,7 +1303,7 @@ nav#nav.stuck {
 .cav-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 40%, transparent 100%);
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
@@ -1339,7 +1347,7 @@ nav#nav.stuck {
     font-weight: 700;
     color: #fff;
     margin-bottom: 4px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .crole {
@@ -1354,7 +1362,7 @@ nav#nav.stuck {
 
 .cdept {
     font-size: 0.85rem;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.5;
     opacity: 0;
     transform: translateY(10px);
@@ -1789,6 +1797,7 @@ footer {
     from {
         transform: translateY(0);
     }
+
     to {
         transform: translateY(-100%);
     }
@@ -1798,7 +1807,7 @@ footer {
     position: absolute;
     inset: 0;
     opacity: 0.05;
-    background-image: 
+    background-image:
         radial-gradient(circle at 2px 2px, var(--gold) 1px, transparent 0);
     background-size: 40px 40px;
     mask-image: radial-gradient(circle at center, black, transparent 80%);
@@ -1811,7 +1820,7 @@ footer {
     pointer-events: none;
     z-index: 0;
     opacity: 0.05;
-    background-image: 
+    background-image:
         url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z' fill='none' stroke='%23d4af37' stroke-width='0.5'/%3E%3Cpath d='M30 15 L45 30 L30 45 L15 30 Z' fill='none' stroke='%23f5c518' stroke-width='0.2'/%3E%3C/svg%3E");
     background-size: 120px 120px;
     animation: vedic-breath 15s ease-in-out infinite alternate;
@@ -1827,13 +1836,25 @@ footer {
 }
 
 @keyframes vedic-breath {
-    0% { opacity: 0.03; transform: scale(1); }
-    100% { opacity: 0.06; transform: scale(1.05); }
+    0% {
+        opacity: 0.03;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.06;
+        transform: scale(1.05);
+    }
 }
 
 @keyframes bindu-flow {
-    from { background-position: 0 0; }
-    to { background-position: 600px 600px; }
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 600px 600px;
+    }
 }
 
 .myth-glow-aura {
@@ -1843,7 +1864,7 @@ footer {
     width: 150%;
     height: 150%;
     background: radial-gradient(circle at 30% 30%, rgba(245, 197, 24, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 70% 70%, rgba(255, 115, 0, 0.05) 0%, transparent 40%);
+        radial-gradient(circle at 70% 70%, rgba(255, 115, 0, 0.05) 0%, transparent 40%);
     transform: translate(-50%, -50%);
     animation: aura-drift 30s ease-in-out infinite alternate;
 }
@@ -1852,22 +1873,32 @@ footer {
     position: absolute;
     inset: 0;
     background-image: radial-gradient(1px 1px at 25% 35%, white 100%, transparent 0),
-                      radial-gradient(1px 1px at 50% 10%, white 100%, transparent 0),
-                      radial-gradient(1.5px 1.5px at 75% 65%, var(--gold) 100%, transparent 0),
-                      radial-gradient(1px 1px at 10% 90%, white 100%, transparent 0);
+        radial-gradient(1px 1px at 50% 10%, white 100%, transparent 0),
+        radial-gradient(1.5px 1.5px at 75% 65%, var(--gold) 100%, transparent 0),
+        radial-gradient(1px 1px at 10% 90%, white 100%, transparent 0);
     background-size: 300px 300px;
     opacity: 0.15;
     animation: dust-float 40s linear infinite;
 }
 
 @keyframes aura-drift {
-    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-    100% { transform: translate(-45%, -55%) rotate(5deg) scale(1.1); }
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    }
+
+    100% {
+        transform: translate(-45%, -55%) rotate(5deg) scale(1.1);
+    }
 }
 
 @keyframes dust-float {
-    from { background-position: 0 0; }
-    to { background-position: 300px 600px; }
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 300px 600px;
+    }
 }
 
 @keyframes pulse-glow {
@@ -2272,8 +2303,13 @@ footer {
 }
 
 @keyframes chakra-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .form-svg-corner {
@@ -2284,10 +2320,28 @@ footer {
     opacity: 0.6;
 }
 
-.corner-tl { top: 0; left: 0; }
-.corner-tr { top: 0; right: 0; transform: rotate(90deg); }
-.corner-bl { bottom: 0; left: 0; transform: rotate(-90deg); }
-.corner-br { bottom: 0; right: 0; transform: rotate(180deg); }
+.corner-tl {
+    top: 0;
+    left: 0;
+}
+
+.corner-tr {
+    top: 0;
+    right: 0;
+    transform: rotate(90deg);
+}
+
+.corner-bl {
+    bottom: 0;
+    left: 0;
+    transform: rotate(-90deg);
+}
+
+.corner-br {
+    bottom: 0;
+    right: 0;
+    transform: rotate(180deg);
+}
 
 /* --- Modal Background Animations --- */
 .modal-bg-anim {
@@ -2310,8 +2364,13 @@ footer {
 }
 
 @keyframes mandala-rotate {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
 }
 
 .ember {
@@ -2324,7 +2383,17 @@ footer {
 }
 
 @keyframes ember-float {
-    0% { transform: translateY(0) scale(0); opacity: 0; }
-    50% { opacity: 0.6; }
-    100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+    0% {
+        transform: translateY(0) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-150px) scale(1.5);
+        opacity: 0;
+    }
 }
