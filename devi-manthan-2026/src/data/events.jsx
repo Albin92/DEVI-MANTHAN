@@ -180,7 +180,7 @@ export const events = [
     eventHeads: [
       { role: 'Student Coordinator', name: 'Kaizar', phone: '7795941232', photo: null },
       { role: 'Student Coordinator', name: 'Vandith', phone: '7676095451', photo: null },
-      { role: 'Staff Coordinator', name: 'Dr.Mrs. Divya Naveen', phone: '7349758721', photo: null },
+      { role: 'Staff Coordinator', name: 'Dr.Divya Naveen', phone: '7349758721', photo: null },
       { role: 'Staff Coordinator', name: 'Ms. Malavika', phone: '6362469319', photo: null }
     ]
   }
