@@ -482,8 +482,8 @@ export default function GlobalLayout({ children }) {
             <h4>Connect</h4>
             <ul>
               <li><a href="https://www.instagram.com/sdcis_2k26?igsh=ZG5wMmRqMTkxY2Fm" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-instagram"></i>@sdcis_2k26</a></li>
-              <li><a href="mailto:devimanthan@sdcis.ac.in"><i className="fa-solid fa-envelope"></i>devimanthan@sdcis.ac.in</a></li>
-              <li><a href="tel:+91XXXXXXXXXX"><i className="fa-solid fa-phone"></i>+91 XXXXX XXXXX</a></li>
+              <li><a href="mailto:shreedevicollegeis@gmail.com"><i className="fa-solid fa-envelope"></i>shreedevicollegeis@gmail.com</a></li>
+              <li><a href="tel:+917349758721"><i className="fa-solid fa-phone"></i>+917349758721</a></li>
             </ul>
           </div>
         </div>

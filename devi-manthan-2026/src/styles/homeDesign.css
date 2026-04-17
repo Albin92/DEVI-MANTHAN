@@ -2209,6 +2209,10 @@ footer {
     outline: none !important;
 }
 
+.thematic-input.with-prefix {
+    padding-left: 56px !important;
+}
+
 .thematic-input:focus {
     border-color: var(--gold) !important;
     box-shadow: 0 0 15px rgba(245, 197, 24, 0.2) !important;

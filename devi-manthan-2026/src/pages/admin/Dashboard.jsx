@@ -11,9 +11,9 @@ const mockRegistrations = [
         paymentStatus: 'Verified',
         totalAmount: '₹1500',
         participants: [
-            { id: 'p1', name: 'Rahul Sharma', event: 'Srijan (Coding)' },
-            { id: 'p2', name: 'Aman Verma', event: 'Spardha (Gaming)' },
-            { id: 'p3', name: 'Priya Das', event: 'Netrutva (IT Manager)' }
+            { id: 'p1', name: 'Rahul Sharma', event: 'Srijan (Coding)', phone: '+91 9876543210' },
+            { id: 'p2', name: 'Aman Verma', event: 'Spardha (Gaming)', phone: '+91 8765432109' },
+            { id: 'p3', name: 'Priya Das', event: 'Netrutva (IT Manager)', phone: '+91 7654321098' }
         ]
     },
     {
@@ -23,8 +23,8 @@ const mockRegistrations = [
         paymentStatus: 'Pending',
         totalAmount: '₹800',
         participants: [
-            { id: 'p4', name: 'Ananya Patel', event: 'Spardha (Gaming)' },
-            { id: 'p5', name: 'Karan Singh', event: 'Srijan (Coding)' }
+            { id: 'p4', name: 'Ananya Patel', event: 'Spardha (Gaming)', phone: '+91 6543210987' },
+            { id: 'p5', name: 'Karan Singh', event: 'Srijan (Coding)', phone: '+91 5432109876' }
         ]
     }
 ];
@@ -338,17 +338,19 @@ export default function Dashboard({ onLogout }) {
                                                             {team.createdAt  && <span>📅 Registered: {team.createdAt}</span>}
                                                         </div>
                                                     )}
-                                                    <div className="grid grid-cols-2 bg-white/[0.02] p-3 text-xs font-bold text-zinc-500 uppercase tracking-widest border-b border-white/5">
+                                                    <div className="grid grid-cols-3 bg-white/[0.02] p-3 text-xs font-bold text-zinc-500 uppercase tracking-widest border-b border-white/5">
                                                         <div>Participant Name</div>
+                                                        <div>Contact Number</div>
                                                         <div>Registered Event</div>
                                                     </div>
                                                     <div className="divide-y divide-white/5">
                                                         {team.participants.map((p, idx) => (
-                                                            <div key={idx} className="grid grid-cols-2 p-3 text-sm hover:bg-white/[0.02] transition-colors">
+                                                            <div key={idx} className="grid grid-cols-3 p-3 text-sm hover:bg-white/[0.02] transition-colors">
                                                                 <div className="flex items-center gap-2 text-zinc-300">
                                                                     <div className="w-1.5 h-1.5 rounded-full bg-amber-500/50"></div>
                                                                     {p.name} {p.name === team.leaderName && <span className="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded ml-2">LEADER</span>}
                                                                 </div>
+                                                                <div className="text-zinc-400 font-mono text-xs flex items-center">{p.phone || '—'}</div>
                                                                 <div className="text-amber-400/80 font-medium">{p.event}</div>
                                                             </div>
                                                         ))}

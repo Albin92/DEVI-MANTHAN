@@ -22,10 +22,20 @@ const CornerOrnament = ({ className }) => (
   </svg>
 );
 
-const ThematicInput = ({ label, ...props }) => (
+const ThematicInput = ({ label, prefix, ...props }) => (
   <div className="thematic-input-wrapper">
     <label className="thematic-label">{label}</label>
-    <input className="thematic-input" {...props} />
+    <div className="relative flex items-center">
+      {prefix && (
+        <span className="absolute left-4 text-zinc-400 font-rajdhani pointer-events-none text-sm">
+          {prefix}
+        </span>
+      )}
+      <input 
+        className={`thematic-input ${prefix ? 'with-prefix' : ''}`} 
+        {...props} 
+      />
+    </div>
     <motion.div
       initial={{ scaleX: 0 }}
       whileFocus={{ scaleX: 1 }}
@@ -120,7 +130,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
         formattedParticipants.push({
           id: `p_${Math.random().toString(36).substr(2, 9)}`,
           name: p.name,
-          phone: p.phone,
+          phone: p.phone ? `+91${p.phone}` : '',
           event: eventName
         });
       });
@@ -150,7 +160,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
           {
             college: formData.collegeName,
             leader_name: formData.leaderName,
-            leader_phone: formData.leaderPhone,
+            leader_phone: `+91${formData.leaderPhone}`,
             leader_email: formData.leaderEmail,
             total_amount: 0,
             payment_status: 'Free',
@@ -238,101 +248,102 @@ export default function RegistrationModal({ isOpen, onClose }) {
 
           {!success ? (
             <>
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="text-center mb-10"
-                >
-                  <h2 className="text-4xl font-cinzel text-white tracking-[0.2em] uppercase mb-4">
-                    Registration is <span className="text-[var(--gold)]">Open</span>
-                  </h2>
-                  <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent opacity-40"></div>
-                  <p className="mt-4 font-rajdhani text-gray-400 tracking-[0.1em] uppercase text-sm">Join the technical showdown at Devi-Manthan 2026</p>
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center mb-10"
+              >
+                <h2 className="text-4xl font-cinzel text-white tracking-[0.2em] uppercase mb-4">
+                  Registration is <span className="text-[var(--gold)]">Open</span>
+                </h2>
+                <div className="h-[1px] w-full bg-gradient-to-r from-transparent via-[var(--gold)] to-transparent opacity-40"></div>
+                <p className="mt-4 font-rajdhani text-gray-400 tracking-[0.1em] uppercase text-sm">Join the technical showdown at Devi-Manthan 2026</p>
+              </motion.div>
+
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <motion.div variants={sectionVariants} initial="hidden" animate="visible">
+                  <SectionDivider title="01 — COLLEGE & LEADER" />
+                  <div className="space-y-6">
+                    <ThematicInput
+                      label="College Name *"
+                      name="collegeName"
+                      value={formData.collegeName}
+                      onChange={handleInputChange}
+                      required
+                      placeholder="Enter your college name"
+                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <ThematicInput
+                        label="Leader Name *"
+                        name="leaderName"
+                        value={formData.leaderName}
+                        onChange={handleInputChange}
+                        required
+                        placeholder="The Lead Participant"
+                      />
+                      <ThematicInput
+                        label="Leader Contact Number *"
+                        name="leaderPhone"
+                        value={formData.leaderPhone}
+                        onChange={handleInputChange}
+                        required
+                        prefix="+91"
+                        pattern="\d{10}"
+                        maxLength="10"
+                        placeholder="XXXXXXXXXX"
+                      />
+                    </div>
+                    <ThematicInput
+                      label="Leader Email ID *"
+                      name="leaderEmail"
+                      value={formData.leaderEmail}
+                      onChange={handleInputChange}
+                      required
+                      type="email"
+                      placeholder="leader@college.edu"
+                    />
+                  </div>
                 </motion.div>
 
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <motion.div variants={sectionVariants} initial="hidden" animate="visible">
-                    <SectionDivider title="01 — COLLEGE & LEADER" />
-                    <div className="space-y-6">
-                      <ThematicInput
-                        label="College Name *"
-                        name="collegeName"
-                        value={formData.collegeName}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Enter your college name"
-                      />
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <ThematicInput
-                          label="Leader Name *"
-                          name="leaderName"
-                          value={formData.leaderName}
-                          onChange={handleInputChange}
-                          required
-                          placeholder="The Lead Participant"
-                        />
-                        <ThematicInput
-                          label="Leader Contact Number *"
-                          name="leaderPhone"
-                          value={formData.leaderPhone}
-                          onChange={handleInputChange}
-                          required
-                          pattern="^\+\d{1,3}\s?\d{10}$"
-                          title="Must start with a country code (e.g., +91) followed by 10 digits"
-                          placeholder="+91 XXXXXXXXXX"
-                        />
-                      </div>
-                      <ThematicInput
-                        label="Leader Email ID *"
-                        name="leaderEmail"
-                        value={formData.leaderEmail}
-                        onChange={handleInputChange}
-                        required
-                        type="email"
-                        placeholder="leader@college.edu"
-                      />
-                    </div>
-                  </motion.div>
-
-                  <motion.div variants={sectionVariants} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
-                    <SectionDivider title="02 — EVENT SELECTION" />
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {Object.keys(EVENT_CONFIG).map((eventName) => (
-                        <div
-                          key={eventName}
-                          onClick={() => handleEventToggle(eventName)}
-                          className={`event-card-themed ${formData.events.includes(eventName) ? 'selected' : ''}`}
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-cinzel text-sm text-white">
-                              {eventName.includes(' (') ? eventName.split(' (')[1].replace(')', '') : eventName}
-                            </span>
-                          </div>
-                          <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-tighter">
-                            {EVENT_CONFIG[eventName].type} • {EVENT_CONFIG[eventName].members} Participant{EVENT_CONFIG[eventName].members > 1 ? 's' : ''}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
-
-                  <AnimatePresence>
-                    {formData.events.length > 0 && (
-                      <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: 'auto' }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="overflow-hidden"
+                <motion.div variants={sectionVariants} initial="hidden" animate="visible" transition={{ delay: 0.2 }}>
+                  <SectionDivider title="02 — EVENT SELECTION" />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {Object.keys(EVENT_CONFIG).map((eventName) => (
+                      <div
+                        key={eventName}
+                        onClick={() => handleEventToggle(eventName)}
+                        className={`event-card-themed ${formData.events.includes(eventName) ? 'selected' : ''}`}
                       >
-                        <SectionDivider title="03 — PARTICIPANT DETAILS" />
-                        <div className="space-y-6">
-                          {formData.events.map((eventName) => (
-                            <div key={eventName} className="bg-white/5 p-6 border border-white/10 rounded-sm">
-                              <h4 className="text-sm font-cinzel text-[#F5C518] mb-4 tracking-widest">
-                                {eventName.includes(' (') ? eventName.split(' (')[1].replace(')', '') : eventName}
-                              </h4>
-                              <div className={`grid grid-cols-1 ${EVENT_CONFIG[eventName].members > 1 ? 'md:grid-cols-2' : ''} gap-4`}>
-                                {Array.from({ length: EVENT_CONFIG[eventName].members }).map((_, idx) => (
+                        <div className="flex items-center justify-between">
+                          <span className="font-cinzel text-sm text-white">
+                            {eventName.includes(' (') ? eventName.split(' (')[1].replace(')', '') : eventName}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-gray-500 mt-1 uppercase tracking-tighter">
+                          {EVENT_CONFIG[eventName].type} • {EVENT_CONFIG[eventName].members} Participant{EVENT_CONFIG[eventName].members > 1 ? 's' : ''}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </motion.div>
+
+                <AnimatePresence>
+                  {formData.events.length > 0 && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <SectionDivider title="03 — PARTICIPANT DETAILS" />
+                      <div className="space-y-6">
+                        {formData.events.map((eventName) => (
+                          <div key={eventName} className="bg-white/5 p-6 border border-white/10 rounded-sm">
+                            <h4 className="text-sm font-cinzel text-[#F5C518] mb-4 tracking-widest">
+                              {eventName.includes(' (') ? eventName.split(' (')[1].replace(')', '') : eventName}
+                            </h4>
+                            <div className={`grid grid-cols-1 ${EVENT_CONFIG[eventName].members > 1 ? 'md:grid-cols-2' : ''} gap-4`}>
+                              {Array.from({ length: EVENT_CONFIG[eventName].members }).map((_, idx) => (
                                   <div key={idx} className="flex gap-2">
                                     <input
                                       type="text"
@@ -342,51 +353,56 @@ export default function RegistrationModal({ isOpen, onClose }) {
                                       required={idx === 0}
                                       className="thematic-input w-1/2"
                                     />
-                                    <input
-                                      type="text"
-                                      placeholder="+91 XXXXXXXXXX"
-                                      value={participants[eventName]?.[idx]?.phone || ''}
-                                      onChange={(e) => handleParticipantChange(eventName, idx, 'phone', e.target.value)}
-                                      required={idx === 0}
-                                      pattern="^\+\d{1,3}\s?\d{10}$"
-                                      title="Must start with a country code (e.g., +91) followed by 10 digits"
-                                      className="thematic-input w-1/2"
-                                    />
+                                    <div className="relative flex items-center w-1/2">
+                                      <span className="absolute left-4 text-zinc-400 font-rajdhani pointer-events-none text-sm">
+                                        +91
+                                      </span>
+                                      <input
+                                        type="text"
+                                        placeholder="XXXXXXXXXX"
+                                        value={participants[eventName]?.[idx]?.phone || ''}
+                                        onChange={(e) => handleParticipantChange(eventName, idx, 'phone', e.target.value)}
+                                        required={idx === 0}
+                                        pattern="\d{10}"
+                                        maxLength="10"
+                                        className="thematic-input w-full with-prefix"
+                                      />
+                                    </div>
                                   </div>
-                                ))}
-                              </div>
+                              ))}
                             </div>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                  <div className="pt-8 gap-4 flex flex-col">
-                    <button
-                      type="submit"
-                      disabled={formData.events.length === 0 || loading}
-                      className="glow-btn-themed flex justify-center items-center gap-2"
-                    >
-                      {loading ? (
-                        <>
-                          <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Processing...
-                        </>
-                      ) : (
-                        "Complete Registration"
-                      )}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={onClose}
-                      className="text-gray-500 hover:text-white font-rajdhani uppercase tracking-widest text-xs transition-colors"
-                    >
-                      Return to Home
-                    </button>
-                  </div>
-                </form>
-              </>
+                <div className="pt-8 gap-4 flex flex-col">
+                  <button
+                    type="submit"
+                    disabled={formData.events.length === 0 || loading}
+                    className="glow-btn-themed flex justify-center items-center gap-2"
+                  >
+                    {loading ? (
+                      <>
+                        <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Processing...
+                      </>
+                    ) : (
+                      "Complete Registration"
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className="text-gray-500 hover:text-white font-rajdhani uppercase tracking-widest text-xs transition-colors"
+                  >
+                    Return to Home
+                  </button>
+                </div>
+              </form>
+            </>
           ) : (
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
