@@ -64,7 +64,8 @@ export const events = [
 5. A Rapid-Fire Q&A Round will be conducted, where participants must answer questions based on their theme/concept.
 6. Judging will be based on creativity, theme relevance, technological innovation, presentation, coordination, confidence, and overall impact.
 7. The judges’ decision will be final and binding.
-8. Any violation of rules may result in penalties or disqualification.`,
+8. Any violation of rules may result in penalties or disqualification.
+9.Each team will be given 5+2 minutes to present their performance on stage`,
     eventHeads: [
       { role: 'Student Coordinator', name: 'Ziyana', phone: '7676118075', photo: null },
       { role: 'Staff Coordinator', name: 'Ms. Priya H', phone: '8618748491', photo: null },
