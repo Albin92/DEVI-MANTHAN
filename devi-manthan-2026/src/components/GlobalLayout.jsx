@@ -13,7 +13,7 @@ export default function GlobalLayout({ children }) {
   const location = useLocation();
 
   const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, {stiffness: 100, damping: 30});
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
   const bowY = useTransform(smoothProgress, [0, 1], [0, -150]);
   const gadaY = useTransform(smoothProgress, [0, 1], [0, 200]);
   const chakraY = useTransform(smoothProgress, [0, 1], [0, -80]);
@@ -27,7 +27,30 @@ export default function GlobalLayout({ children }) {
       setIsDesktop(window.innerWidth > 1024);
     };
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    // Attempt automatic fullscreen strictly on load (Note: Browsers block this without kiosk flags/user interaction)
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch((err) => {
+        console.warn(`Fullscreen API on load blocked by browser security: ${err.message}`);
+      });
+    }
+
+    // Cinematic Auto-Fullscreen on first interaction
+    const handleFirstInteraction = () => {
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(() => { });
+      }
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
+    document.addEventListener('click', handleFirstInteraction);
+    document.addEventListener('touchstart', handleFirstInteraction);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('click', handleFirstInteraction);
+      document.removeEventListener('touchstart', handleFirstInteraction);
+    };
   }, []);
 
   useEffect(() => {
@@ -47,7 +70,7 @@ export default function GlobalLayout({ children }) {
         curDotRef.current.style.left = mx + 'px';
         curDotRef.current.style.top = my + 'px';
       }
-      
+
       const target = e.target;
       if (target.closest('a, button, .ec, .cc, .bro-card, .btn-fire, .btn-ghost')) {
         document.body.classList.add('hovering');
@@ -105,14 +128,14 @@ export default function GlobalLayout({ children }) {
     };
 
     const observer = new IntersectionObserver(handleIntersect, observerOptions);
-    
+
     // RETRY OBSERVER: Scans for sections repeatedly to handle delayed mounts from page transitions
     let attempts = 0;
     const obsInterval = setInterval(() => {
       attempts++;
       const sections = ['hero', 'about'];
       let foundCount = 0;
-      
+
       sections.forEach((id) => {
         const el = document.getElementById(id);
         if (el) {
@@ -165,7 +188,7 @@ export default function GlobalLayout({ children }) {
       };
       resizeHandler();
       window.addEventListener('resize', resizeHandler);
-      
+
       // Store reference to cleanly remove listener
       window.__canvasResizeHandler = resizeHandler;
 
@@ -181,15 +204,15 @@ export default function GlobalLayout({ children }) {
           this.y += this.v; if (this.y > H) this.init();
         }
         draw() {
-          if(!ctx) return;
+          if (!ctx) return;
           ctx.beginPath(); ctx.moveTo(this.x, this.y); ctx.lineTo(this.x, this.y + this.l);
           ctx.strokeStyle = `rgba(245,197,24,${this.o})`; ctx.lineWidth = 1; ctx.stroke();
           ctx.beginPath(); ctx.moveTo(this.x - 2, this.y + this.l - 5); ctx.lineTo(this.x, this.y + this.l); ctx.lineTo(this.x + 2, this.y + this.l - 5); ctx.stroke();
         }
       }
-      class Star { constructor() { this.init(true); } init(i = false) { this.x = r(0, W); this.y = i ? r(0, H) : H + 8; this.rad = r(0.3, 1.4); this.a = r(0.02, 0.16); this.sp = r(0.08, 0.32); this.dr = r(-0.14, 0.14); } tick() { this.y -= this.sp; this.x += this.dr; if (this.y < -8) this.init(); } draw() { if(!ctx) return; ctx.beginPath(); ctx.arc(this.x, this.y, this.rad, 0, Math.PI * 2); ctx.fillStyle = `rgba(245,197,24,${this.a})`; ctx.fill(); } }
-      class Sym { constructor() { this.init(true); } init(i = false) { this.x = r(0, W); this.y = i ? r(0, H) : H + 28; this.ch = SYMS[Math.floor(Math.random() * SYMS.length)]; this.sz = r(8, 18); this.a = r(0.012, 0.058); this.sp = r(0.09, 0.42); this.rot = r(0, Math.PI * 2); this.rs = r(-0.005, 0.005); } tick() { this.y -= this.sp; this.rot += this.rs; if (this.y < -28) this.init(); } draw() { if(!ctx) return; ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.rot); ctx.globalAlpha = this.a; ctx.fillStyle = '#F5C518'; ctx.font = this.sz + 'px serif'; ctx.fillText(this.ch, -this.sz / 2, this.sz / 2); ctx.restore(); } }
-      class Dot { constructor() { this.x = r(0, W); this.y = r(0, H); this.vx = r(-0.18, 0.18); this.vy = r(-0.12, 0.12); this.rad = r(0.6, 1.8); this.a = r(0.04, 0.13); } tick() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W) this.vx *= -1; if (this.y < 0 || this.y > H) this.vy *= -1; } draw() { if(!ctx) return; ctx.beginPath(); ctx.arc(this.x, this.y, this.rad, 0, Math.PI * 2); ctx.fillStyle = `rgba(245,197,24,${this.a})`; ctx.fill(); } }
+      class Star { constructor() { this.init(true); } init(i = false) { this.x = r(0, W); this.y = i ? r(0, H) : H + 8; this.rad = r(0.3, 1.4); this.a = r(0.02, 0.16); this.sp = r(0.08, 0.32); this.dr = r(-0.14, 0.14); } tick() { this.y -= this.sp; this.x += this.dr; if (this.y < -8) this.init(); } draw() { if (!ctx) return; ctx.beginPath(); ctx.arc(this.x, this.y, this.rad, 0, Math.PI * 2); ctx.fillStyle = `rgba(245,197,24,${this.a})`; ctx.fill(); } }
+      class Sym { constructor() { this.init(true); } init(i = false) { this.x = r(0, W); this.y = i ? r(0, H) : H + 28; this.ch = SYMS[Math.floor(Math.random() * SYMS.length)]; this.sz = r(8, 18); this.a = r(0.012, 0.058); this.sp = r(0.09, 0.42); this.rot = r(0, Math.PI * 2); this.rs = r(-0.005, 0.005); } tick() { this.y -= this.sp; this.rot += this.rs; if (this.y < -28) this.init(); } draw() { if (!ctx) return; ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.rot); ctx.globalAlpha = this.a; ctx.fillStyle = '#F5C518'; ctx.font = this.sz + 'px serif'; ctx.fillText(this.ch, -this.sz / 2, this.sz / 2); ctx.restore(); } }
+      class Dot { constructor() { this.x = r(0, W); this.y = r(0, H); this.vx = r(-0.18, 0.18); this.vy = r(-0.12, 0.12); this.rad = r(0.6, 1.8); this.a = r(0.04, 0.13); } tick() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > W) this.vx *= -1; if (this.y < 0 || this.y > H) this.vy *= -1; } draw() { if (!ctx) return; ctx.beginPath(); ctx.arc(this.x, this.y, this.rad, 0, Math.PI * 2); ctx.fillStyle = `rgba(245,197,24,${this.a})`; ctx.fill(); } }
 
       const isMobileCanvas = window.innerWidth < 768;
       const stars = Array.from({ length: isMobileCanvas ? 60 : 175 }, () => new Star());
@@ -201,7 +224,7 @@ export default function GlobalLayout({ children }) {
       document.addEventListener('mousemove', handleCanvasMouseMove);
 
       const frame = () => {
-        if(!ctx) return;
+        if (!ctx) return;
         ctx.clearRect(0, 0, W, H);
         const g = ctx.createRadialGradient(W / 2 + mpx * 40, H / 2 + mpy * 40, 0, W / 2, H / 2, Math.max(W, H) * 0.8);
         g.addColorStop(0, 'rgba(255,109,0,.022)'); g.addColorStop(0.4, 'rgba(245,197,24,.008)'); g.addColorStop(1, 'transparent');
@@ -232,21 +255,7 @@ export default function GlobalLayout({ children }) {
     };
   }, []);
 
-  const handleBrochureClick = (e) => {
-    e.preventDefault();
-    const s = document.createElement('div');
-    Object.assign(s.style, {
-      position: 'fixed', bottom: '28px', left: '50%', transform: 'translateX(-50%) translateY(100px)',
-      background: 'rgba(2,2,13,.97)', border: '1px solid var(--gold)', borderRadius: '8px',
-      padding: '12px 28px', fontFamily: "'Rajdhani',sans-serif", fontSize: '.95rem',
-      color: 'var(--gold)', zIndex: '9000', transition: 'transform .4s cubic-bezier(.34,1.56,.64,1)',
-      backdropFilter: 'blur(12px)', whiteSpace: 'nowrap'
-    });
-    s.textContent = '☸  Brochure download coming soon!';
-    document.body.appendChild(s);
-    setTimeout(() => s.style.transform = 'translateX(-50%) translateY(0)', 10);
-    setTimeout(() => { s.style.transform = 'translateX(-50%) translateY(100px)'; setTimeout(() => s.remove(), 400) }, 3500);
-  };
+
 
   const closeMob = () => setMobOpen(false);
 
@@ -256,7 +265,7 @@ export default function GlobalLayout({ children }) {
       '/': 'hero',
       '/about': 'about'
     };
-    
+
     // On homepage, prioritize scroll-tracked sections
     if (location.pathname === '/') {
       // If this path is one we track by scroll
@@ -264,7 +273,7 @@ export default function GlobalLayout({ children }) {
         return activeSection === sectionMapping[path] ? 'active' : '';
       }
     }
-    
+
     // Otherwise, or as fallback, use strict pathname match
     return location.pathname === path ? 'active' : '';
   };
@@ -278,10 +287,10 @@ export default function GlobalLayout({ children }) {
       el.scrollIntoView({ behavior: 'smooth' });
       closeMob();
     } else if (el && path === location.pathname) {
-       // On non-home pages if the section exists (e.g. /events page has #events)
-       e.preventDefault();
-       el.scrollIntoView({ behavior: 'smooth' });
-       closeMob();
+      // On non-home pages if the section exists (e.g. /events page has #events)
+      e.preventDefault();
+      el.scrollIntoView({ behavior: 'smooth' });
+      closeMob();
     }
   };
 
@@ -318,19 +327,19 @@ export default function GlobalLayout({ children }) {
           <motion.div
             key={i}
             className="spark"
-            initial={{ 
-              x: Math.random() * 100 + '%', 
-              y: '110vh', 
+            initial={{
+              x: Math.random() * 100 + '%',
+              y: '110vh',
               opacity: Math.random() * 0.5 + 0.2,
               scale: Math.random() * 0.5 + 0.5
             }}
-            animate={{ 
-              y: '-10vh', 
-              x: (Math.random() * 100 - 50) + 'px' 
+            animate={{
+              y: '-10vh',
+              x: (Math.random() * 100 - 50) + 'px'
             }}
-            transition={{ 
-              duration: Math.random() * 10 + 10, 
-              repeat: Infinity, 
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
               ease: "linear",
               delay: Math.random() * 20
             }}
@@ -367,9 +376,9 @@ export default function GlobalLayout({ children }) {
 
       {/* MAYUR PANKH (PEACOCK FEATHER) */}
       {isDesktop && (
-        <motion.div 
+        <motion.div
           className="f-elem f-feather"
-          animate={{ 
+          animate={{
             rotate: [0, 5, -5, 0],
             x: [0, 20, -10, 0],
             y: [0, -15, 10, 0]
@@ -388,12 +397,12 @@ export default function GlobalLayout({ children }) {
       {isDesktop && (
         <div className="shloka-ghost-v">
           <div className="shloka-track">
-             <span>॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</span>
-             <span>◈</span>
-             <span>॥ धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ॥</span>
-             <span>◈</span>
-             <span>॥ यतो धर्मस्ततो जयः ॥</span>
-             <span>◈</span>
+            <span>॥ कर्मण्येवाधिकारस्ते मा फलेषु कदाचन ॥</span>
+            <span>◈</span>
+            <span>॥ धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ॥</span>
+            <span>◈</span>
+            <span>॥ यतो धर्मस्ततो जयः ॥</span>
+            <span>◈</span>
           </div>
         </div>
       )}
@@ -406,10 +415,10 @@ export default function GlobalLayout({ children }) {
       {/* MOBILE NAV */}
       <div className={`mob ${mobOpen ? 'open' : ''}`}>
         <button className="mob-x" onClick={closeMob} aria-label="Close">✕</button>
-        <Link to="/" onClick={(e) => { handleNavClick(e, 'hero', '/'); closeMob(); }}><i className="fa fa-house" style={{fontSize:'.8em', marginRight:'8px'}}></i>Home</Link>
-        <Link to="/events" onClick={closeMob}><i className="fa fa-scroll" style={{fontSize:'.8em', marginRight:'8px'}}></i>Events</Link>
-        <Link to="/about" onClick={(e) => { handleNavClick(e, 'about', '/about'); closeMob(); }}><i className="fa fa-circle-info" style={{fontSize:'.8em', marginRight:'8px'}}></i>About</Link>
-        <Link to="/register" onClick={(e) => { handleNavClick(e, 'register', '/register'); closeMob(); }} style={{color:'var(--gold)'}}><i className="fa fa-bolt" style={{fontSize:'.8em', marginRight:'8px'}}></i>Register</Link>
+        <Link to="/" onClick={(e) => { handleNavClick(e, 'hero', '/'); closeMob(); }}><i className="fa fa-house" style={{ fontSize: '.8em', marginRight: '8px' }}></i>Home</Link>
+        <Link to="/events" onClick={closeMob}><i className="fa fa-scroll" style={{ fontSize: '.8em', marginRight: '8px' }}></i>Events</Link>
+        <Link to="/about" onClick={(e) => { handleNavClick(e, 'about', '/about'); closeMob(); }}><i className="fa fa-circle-info" style={{ fontSize: '.8em', marginRight: '8px' }}></i>About</Link>
+        <Link to="/register" onClick={(e) => { handleNavClick(e, 'register', '/register'); closeMob(); }} style={{ color: 'var(--gold)' }}><i className="fa fa-bolt" style={{ fontSize: '.8em', marginRight: '8px' }}></i>Register</Link>
       </div>
 
       {/* ════════════ NAVBAR ════════════ */}
@@ -437,16 +446,15 @@ export default function GlobalLayout({ children }) {
         {children}
       </main>
 
-      {/* ════════════ FOOTER ════════════ */}
+      {/* ════════════ FOOTER SYSTEM ════════════ */}
       <footer>
         <div className="ft-top">
           <div>
             <div className="fb-logo"><i className="fa-solid fa-dharmachakra"></i> DEVI MANTHAN 2026</div>
             <p className="fb-p">The Intercollegiate IT Fest of Shree Devi College of Information Science, Mangaluru. Tradition Rewired. Innovation Unleashed.</p>
             <div className="ft-soc">
-              <a href="#" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
+              <a href="https://www.instagram.com/sdcis_2k26?igsh=ZG5wMmRqMTkxY2Fm" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
               <a href="mailto:" aria-label="Email"><i className="fa-solid fa-envelope"></i></a>
-              <a href="#" aria-label="WhatsApp"><i className="fa-brands fa-whatsapp"></i></a>
             </div>
           </div>
           <div className="ft-col">
@@ -456,26 +464,26 @@ export default function GlobalLayout({ children }) {
               <li><Link to="/events"><i className="fa-solid fa-scroll"></i>Events</Link></li>
               <li><Link to="/about"><i className="fa-solid fa-circle-info"></i>About</Link></li>
               <li><Link to="/register"><i className="fa-solid fa-bolt"></i>Register</Link></li>
-              <li><a href="#" onClick={handleBrochureClick}><i className="fa-solid fa-file-pdf"></i>Brochure</a></li>
+              <li><a href="/brochure/brochure.pdf" target="_blank" rel="noopener noreferrer"><i className="fa-solid fa-file-pdf"></i>Brochure</a></li>
             </ul>
           </div>
           <div className="ft-col">
             <h4>Location</h4>
             <p className="addr">
-              <i className="fa-solid fa-location-dot"></i>Shree Devi College of<br/>Information Science<br/>
-              <span style={{marginLeft:'20px', display:'block'}}>Ballalbagh, Mangaluru</span>
-              <span style={{marginLeft:'20px', display:'block'}}>Karnataka — 575 003</span>
+              <i className="fa-solid fa-location-dot"></i>Shree Devi College of<br />Information Science<br />
+              <span style={{ marginLeft: '20px', display: 'block' }}>Ballalbagh, Mangaluru</span>
+              <span style={{ marginLeft: '20px', display: 'block' }}>Karnataka — 575 003</span>
             </p>
-            <p className="addr" style={{marginTop:'12px'}}>
-              <i className="fa-solid fa-map"></i><a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{color:'var(--saff)', textDecoration:'none'}}>Get Directions →</a>
+            <p className="addr" style={{ marginTop: '12px' }}>
+              <i className="fa-solid fa-map"></i><a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{ color: 'var(--saff)', textDecoration: 'none' }}>Get Directions →</a>
             </p>
           </div>
           <div className="ft-col">
             <h4>Connect</h4>
             <ul>
-              <li><a href="https://instagram.com" target="_blank" rel="noreferrer"><i className="fa-brands fa-instagram"></i>@devimanthan2026</a></li>
-              <li><a href="mailto:devimanthan@sdcis.ac.in"><i className="fa-solid fa-envelope"></i>devimanthan@sdcis.ac.in</a></li>
-              <li><a href="tel:+91XXXXXXXXXX"><i className="fa-solid fa-phone"></i>+91 XXXXX XXXXX</a></li>
+              <li><a href="https://www.instagram.com/sdcis_2k26?igsh=ZG5wMmRqMTkxY2Fm" target="_blank" rel="noopener noreferrer"><i className="fa-brands fa-instagram"></i>@sdcis_2k26</a></li>
+              <li><a href="mailto:shreedevicollegeis@gmail.com"><i className="fa-solid fa-envelope"></i>shreedevicollegeis@gmail.com</a></li>
+              <li><a href="tel:+917349758721"><i className="fa-solid fa-phone"></i>+917349758721</a></li>
             </ul>
           </div>
         </div>

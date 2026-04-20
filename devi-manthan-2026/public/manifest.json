@@ -1,0 +1,15 @@
+{
+  "name": "Devi Manthan 2026",
+  "short_name": "DM26",
+  "start_url": "/",
+  "display": "fullscreen",
+  "background_color": "#02020D",
+  "theme_color": "#F5C518",
+  "icons": [
+    {
+      "src": "/main%20logo/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

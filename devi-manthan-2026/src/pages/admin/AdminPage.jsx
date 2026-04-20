@@ -7,6 +7,10 @@ export default function AdminPage() {
   const [session, setSession] = useState(undefined); // undefined = loading
 
   useEffect(() => {
+    // Forcefully restore cursor for admin portal
+    document.body.style.cursor = 'auto';
+    document.documentElement.style.cursor = 'auto';
+
     // Get current session on mount
     supabase.auth.getSession().then(({ data }) => {
       setSession(data.session ?? null);
@@ -17,7 +21,12 @@ export default function AdminPage() {
       setSession(newSession ?? null);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+      // Reset when leaving admin (though AppLayout handles it via class, this is safer)
+      document.body.style.cursor = '';
+      document.documentElement.style.cursor = '';
+    };
   }, []);
 
   const handleLogin = (newSession) => {

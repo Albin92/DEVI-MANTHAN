@@ -25,7 +25,7 @@ export default function Contact() {
               {[FaInstagram].map((Icon, idx) => (
                 <motion.a
                   key={idx}
-                  href="#"
+                  href="https://www.instagram.com/sdcis_2k26?igsh=ZG5wMmRqMTkxY2Fm" target="_blank" rel="noopener noreferrer"
                   whileHover={{ scale: 1.15 }}
                   className="w-10 h-10 rounded-full border border-border-gold flex items-center justify-center text-gold hover:bg-gold hover:text-bg-dark transition-colors"
                 >
