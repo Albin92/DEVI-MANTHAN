@@ -15,7 +15,7 @@ const EVENT_NAMES = [
 ];
 
 const ALL_EVENTS = [
-  { key: 'CHAKRAVYUHA', label: 'CHAKRAVYUHA', subtitle: 'Quiz', category: 'Technical' },
+  { key: 'CHAKRAVYUHA', label: 'CHAKRAVYUHA', subtitle: 'Escape Room', category: 'Technical' },
   { key: 'VYUHANTARA', label: 'VYUHANTARA', subtitle: 'Surprise Event', category: 'Technical' },
   { key: 'ROOPAYANTRA', label: 'ROOPAYANTRA', subtitle: 'Tech Walk', category: 'Cultural' },
   { key: 'UDBHAVA', label: 'UDBHAVA', subtitle: 'Product Launch', category: 'Technical' },
@@ -24,6 +24,22 @@ const ALL_EVENTS = [
   { key: 'BRAHMASTRA', label: 'BRAHMASTRA', subtitle: 'Gaming (BGMI)', category: 'Technical' },
   { key: 'DRISHTICHAKRA', label: 'DRISHTICHAKRA', subtitle: 'Photography & Videography', category: 'Cultural' },
 ];
+
+// Maps OLD event names (from early Supabase records) to their correct current names
+const LEGACY_EVENT_NAME_MAP = {
+  'SPARDHA (Gaming)':                         'BRAHMASTRA (Gaming)',
+  'SPARDHA':                                  'BRAHMASTRA',
+  'VISHWAKARMA (Product Launch)':             'UDBHAVA (Product Launch)',
+  'VISHWAKARMA':                              'UDBHAVA',
+  'CHITRAKATHA (Photography) and Videography':'DRISHTICHAKRA (Photography & Videography)',
+  'CHITRAKATHA':                              'DRISHTICHAKRA',
+  'CHAKRAVYUHA (Quiz)':                       'CHAKRAVYUHA (Escape Room)',
+};
+
+function resolveEventName(name) {
+  if (!name) return name;
+  return LEGACY_EVENT_NAME_MAP[name] || name;
+}
 
 const mockRegistrations = [
   {
@@ -227,12 +243,13 @@ export default function Dashboard({ onLogout }) {
       const effectiveStatus = reg.paymentStatus === 'Free' ? 'Pending' : reg.paymentStatus;
       const matchStatus = statusFilter === 'All' || effectiveStatus === statusFilter;
 
-      // Match event: p.event is like "BRAHMASTRA (Gaming)" — compare first word/prefix
+      // Match event: resolve legacy names first, then compare prefix
       const matchEvent =
         eventFilter === 'All Events' ||
         reg.participants.some(p => {
           if (!p.event) return false;
-          const storedKey = p.event.split(' (')[0].trim().toUpperCase();
+          const resolved = resolveEventName(p.event);
+          const storedKey = resolved.split(' (')[0].trim().toUpperCase();
           return storedKey === eventFilter.toUpperCase();
         });
 
@@ -651,7 +668,7 @@ export default function Dashboard({ onLogout }) {
                                     {p.name} {p.name === team.leaderName && <span className="text-[10px] bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded ml-1">LEADER</span>}
                                   </div>
                                   <div className="text-zinc-400 font-mono text-xs flex items-center">{p.phone || '—'}</div>
-                                  <div className="text-amber-400/80 font-medium text-xs">{p.event}</div>
+                                  <div className="text-amber-400/80 font-medium text-xs">{resolveEventName(p.event)}</div>
                                 </div>
                               ))}
                             </div>
