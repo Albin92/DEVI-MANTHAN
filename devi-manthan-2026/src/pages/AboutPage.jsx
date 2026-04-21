@@ -141,7 +141,7 @@ export default function AboutPage() {
               <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Events</div>
             </div>
             <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
-              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="500">0</div>
+              <div style={{ fontFamily: "'Orbitron',monospace", fontSize: '2rem', fontWeight: 700, background: 'linear-gradient(135deg,var(--gold),var(--saff))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }} data-target="324">0</div>
               <div style={{ fontSize: '.72rem', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginTop: '4px' }}>Warriors</div>
             </div>
             <div style={{ padding: '22px 12px', textAlign: 'center', background: 'var(--cb)', borderRight: '1px solid var(--cbl)' }}>
