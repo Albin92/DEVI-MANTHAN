@@ -154,6 +154,7 @@ export default function Dashboard({ onLogout }) {
 
   const updatePaymentStatus = async (team) => {
     if (usingMock) return;
+    // Treat 'Free' (legacy) same as 'Pending' — any non-Verified toggles to Verified
     const newStatus = team.paymentStatus === 'Verified' ? 'Pending' : 'Verified';
     setUpdatingId(team.id);
     try {
@@ -221,12 +222,20 @@ export default function Dashboard({ onLogout }) {
       const matchSearch =
         reg.college.toLowerCase().includes(searchTerm.toLowerCase()) ||
         reg.leaderName.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchStatus = statusFilter === 'All' || reg.paymentStatus === statusFilter;
+
+      // Treat 'Free' (old default) as 'Pending' for status filter
+      const effectiveStatus = reg.paymentStatus === 'Free' ? 'Pending' : reg.paymentStatus;
+      const matchStatus = statusFilter === 'All' || effectiveStatus === statusFilter;
+
+      // Match event: p.event is like "BRAHMASTRA (Gaming)" — compare first word/prefix
       const matchEvent =
         eventFilter === 'All Events' ||
-        reg.participants.some(p =>
-          p.event && p.event.toUpperCase().includes(eventFilter.toUpperCase())
-        );
+        reg.participants.some(p => {
+          if (!p.event) return false;
+          const storedKey = p.event.split(' (')[0].trim().toUpperCase();
+          return storedKey === eventFilter.toUpperCase();
+        });
+
       return matchSearch && matchStatus && matchEvent;
     })
     .sort((a, b) => {
@@ -235,8 +244,9 @@ export default function Dashboard({ onLogout }) {
       return sortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
 
+  // Count using effective status
   const verifiedCount = filteredData.filter(r => r.paymentStatus === 'Verified').length;
-  const pendingCount = filteredData.filter(r => r.paymentStatus === 'Pending').length;
+  const pendingCount = filteredData.filter(r => r.paymentStatus === 'Pending' || r.paymentStatus === 'Free').length;
 
   const selectClass = "bg-black/60 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-zinc-300 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/40 transition-all appearance-none cursor-pointer";
 

@@ -3,12 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../supabaseClient';
 
 const EVENT_CONFIG = {
-  "CHITRAKATHA (Photography) and Videography": { members: 1, type: "Solo", weapon: "Drishti" },
+  "DRISHTICHAKRA (Photography & Videography)": { members: 1, type: "Solo", weapon: "Drishti" },
   "SUTRADHARA (IT Manager)": { members: 1, type: "Solo", weapon: "Buddhi" },
-  "SPARDHA (Gaming)": { members: 2, type: "Team", weapon: "Astra" },
+  "BRAHMASTRA (Gaming)": { members: 2, type: "Team", weapon: "Astra" },
   "VYUHANTARA (Surprise Event)": { members: 2, type: "Team", weapon: "Maya" },
   "CHAKRAVYUHA (Escape Room)": { members: 2, type: "Team", weapon: "Vyuha" },
-  "VISHWAKARMA (Product Launch)": { members: 2, type: "Team", weapon: "Karta" },
+  "UDBHAVA (Product Launch)": { members: 2, type: "Team", weapon: "Karta" },
   "ASTRACODERS (Web Designing)": { members: 2, type: "Team", weapon: "Shilpa" },
   "ROOPAYANTRA (Tech Walk)": { members: 6, type: "Team", weapon: "Drishti" }
 };
@@ -176,7 +176,7 @@ export default function RegistrationModal({ isOpen, onClose }) {
             leader_phone: `+91${formData.leaderPhone}`,
             leader_email: formData.leaderEmail,
             total_amount: 0,
-            payment_status: 'Free',
+            payment_status: 'Pending',
             participants: formattedParticipants
           }
         ]);
