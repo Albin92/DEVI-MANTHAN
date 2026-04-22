@@ -80,7 +80,7 @@ export const events = [
     category: 'Technical',
     tagline: 'Launch the future.',
     description: 'Demonstrate and pitch your innovative product to the judges.',
-    rules: `1. Each team must have two members.
+    rules: `1. Each team must have two members,1 team per college
 2. Formal dress code is required.
 3. Participants must bring their own devices (laptop and internet).
 4. A product demonstration and presentation are required.
