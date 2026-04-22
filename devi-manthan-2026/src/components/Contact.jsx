@@ -54,7 +54,7 @@ export default function Contact() {
               </li>
               <li className="flex items-start gap-3 font-raleway text-text-muted">
                 <FaPhone className="text-gold mt-1 shrink-0" />
-                <span>+91 98765 43210 | +91 98765 43211</span>
+                <span>+91 73497 58721| +91 93530 54451</span>
               </li>
               <li className="flex items-start gap-3 font-raleway text-text-muted">
                 <FaEnvelope className="text-gold mt-1 shrink-0" />
