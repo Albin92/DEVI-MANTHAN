@@ -38,8 +38,8 @@ export default function Contact() {
           <RevealWrapper delay={0.2} className="lg:pl-8">
             <h4 className="font-cinzelPlain text-gold text-lg mb-6">Quick Links</h4>
             <ul className="space-y-3 mb-8">
-                <li><a href="#faq" className="font-raleway text-text-muted hover:text-gold transition-colors flex items-center gap-2"><FaChevronRight className="text-xs text-gold" /> FAQ</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); alert('Rules & Regulations coming soon!'); }} className="font-raleway text-text-muted hover:text-gold transition-colors flex items-center gap-2"><FaChevronRight className="text-xs text-gold" /> Rules and Regulation</a></li>
+              <li><a href="#faq" className="font-raleway text-text-muted hover:text-gold transition-colors flex items-center gap-2"><FaChevronRight className="text-xs text-gold" /> FAQ</a></li>
+              <li><a href="#" onClick={(e) => { e.preventDefault(); alert('Rules & Regulations coming soon!'); }} className="font-raleway text-text-muted hover:text-gold transition-colors flex items-center gap-2"><FaChevronRight className="text-xs text-gold" /> Rules and Regulation</a></li>
             </ul>
 
             <h4 className="font-cinzelPlain text-gold text-lg mb-6">Get In Touch</h4>
@@ -54,11 +54,11 @@ export default function Contact() {
               </li>
               <li className="flex items-start gap-3 font-raleway text-text-muted">
                 <FaPhone className="text-gold mt-1 shrink-0" />
-                <span>+91 98765 43210 | +91 98765 43211</span>
+                <span>+91 7349758721</span>
               </li>
               <li className="flex items-start gap-3 font-raleway text-text-muted">
                 <FaEnvelope className="text-gold mt-1 shrink-0" />
-                <a href="mailto:devimanthan2026@gmail.com" className="hover:text-gold transition-colors">devimanthan2026@gmail.com</a>
+                <a href="mailto:shreedevicollegeis@gmail.com" className="hover:text-gold transition-colors">devimanthan2026@gmail.com</a>
               </li>
             </ul>
 

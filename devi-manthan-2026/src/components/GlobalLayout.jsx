@@ -475,7 +475,7 @@ export default function GlobalLayout({ children }) {
               <span style={{ marginLeft: '20px', display: 'block' }}>Karnataka — 575 003</span>
             </p>
             <p className="addr" style={{ marginTop: '12px' }}>
-              <i className="fa-solid fa-map"></i><a href="https://maps.google.com" target="_blank" rel="noreferrer" style={{ color: 'var(--saff)', textDecoration: 'none' }}>Get Directions →</a>
+              <i className="fa-solid fa-map"></i><a href="https://maps.app.goo.gl/yZt93ytpntxqJPP27" target="_blank" rel="noreferrer" style={{ color: 'var(--saff)', textDecoration: 'none' }}>Get Directions →</a>
             </p>
           </div>
           <div className="ft-col">
