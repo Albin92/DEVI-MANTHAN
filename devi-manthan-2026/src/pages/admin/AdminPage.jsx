@@ -16,6 +16,9 @@ export default function AdminPage() {
       setSession(data.session ?? null);
     });
 
+
+
+
     // Listen to auth state changes (login / logout)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession ?? null);
